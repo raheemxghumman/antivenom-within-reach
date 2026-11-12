@@ -8,11 +8,13 @@ so villages reachable from 1, 2 or 3+ clinics give Z, ZZ or ZZZ terms. Each term
 one multi-qubit Z rotation in the circuit. (A pure QUBO would have to drop the 3-body
 terms; we keep them, so QAOA optimises exactly the objective the brute force scores.)
 
-Two variants:
-  * "x"  : standard QAOA, budget sum(x) == k as a penalty A * (sum(x) - k)^2.
-  * "xy" : constraint-preserving QAOA (Hadfield et al., 2019): start in an equal
-           superposition of all plans with exactly k clinics (a Dicke state) and mix with
-           XX+YY gates, which never change how many clinics are on. Every shot is valid.
+Three variants:
+  * "x"      : standard QAOA, budget sum(x) == k as a penalty A * (sum(x) - k)^2.
+  * "xy"     : constraint-preserving QAOA (Hadfield et al., 2019): start in an equal
+               superposition of all plans with exactly k clinics (a Dicke state) and mix with
+               XX+YY gates on all pairs, which never change how many clinics are on.
+  * "xyring" : hardware-friendly version of "xy": start from one valid plan and mix only
+               neighbouring qubits on a ring. Much shallower; still every ideal shot is valid.
 
 Training uses exact probabilities from the Qiskit Aer statevector simulator (deterministic
 for a fixed seed). Final results are also sampled with Aer's SamplerV2, as a device would return.
@@ -109,10 +111,16 @@ def qaoa_circuit(poly, n, reps, mixer="x", k=None):
     qc = QuantumCircuit(n, name=f"QAOA-{mixer}-p{reps}")
     if mixer == "x":
         qc.h(range(n))
-    else:
+    elif mixer == "xy":
         qc.append(StatePreparation(dicke_state(n, k)), range(n))
+    else:                                       # "xyring": hardware-friendly, one valid start plan
+        for q in range(0, n, max(1, n // k))[:k]:
+            qc.x(q)
     terms = sorted(((sorted(key), c) for key, c in poly.items() if key), key=lambda t: (len(t[0]), t[0]))
-    pairs = list(combinations(range(n), 2))
+    if mixer == "xyring":                       # nearest neighbours on a ring, two layers (even, odd)
+        pairs = [(i, i + 1) for i in range(0, n - 1, 2)] + [(i, (i + 1) % n) for i in range(1, n, 2)]
+    else:
+        pairs = list(combinations(range(n), 2))
     for layer in range(reps):
         for qs, c in terms:                     # cost layer exp(-i gamma H_C)
             _z_rotation(qc, qs, 2 * gam[layer] * c)
