@@ -21,7 +21,7 @@
 [![Data](https://img.shields.io/badge/map%20data-OpenStreetMap-7EBC6F?logo=openstreetmap&logoColor=white)](https://www.openstreetmap.org/copyright)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-[**Demo video**](#demo-video) · [**Report (.docx)**](docs/report.docx) · [**Run it**](#run-it) · [**Results**](#results) · [**Limitations**](#honest-limitations)
+[**▶️ Demo video**](https://drive.google.com/file/d/17UOcJFbHMMxh0-nDvonKZo-XtzchPU0c/view?usp=sharing) · [**Report (.docx)**](docs/report.docx) · [**Run it**](#run-it) · [**Results**](#results) · [**Limitations**](#honest-limitations)
 
 <img src="docs/screenshots/app_sanghar.png" width="100%" alt="The demo app: optimal plan on the real Sanghar district map">
 
@@ -194,7 +194,7 @@ greedy, optimal and QAOA plans on the map, and **watch QAOA train live** on Qisk
 
 ## Demo video
 
-▶️ **3-minute pitch and demo:** _link added at submission_
+▶️ **[Watch the 3-minute pitch and demo on Google Drive](https://drive.google.com/file/d/17UOcJFbHMMxh0-nDvonKZo-XtzchPU0c/view?usp=sharing)** (2:45 · 1080p)
 
 ## Run it
 

@@ -131,7 +131,7 @@ para("Real district: Sanghar, Sindh, Pakistan (OpenStreetMap) · Run on IBM Quan
      f"(job {hwr['hardware']['job_id']})", size=9.5)
 para("Team: ______________________________", size=9.5)
 para(f"Code: {REPO}", size=9.5)
-para("Video (3 min): ______________________________", size=9.5)
+para("Video (3 min): https://drive.google.com/file/d/17UOcJFbHMMxh0-nDvonKZo-XtzchPU0c/view?usp=sharing", size=9.5)
 
 # ---------------------------------------------------------------- 1
 doc.add_heading("1. Problem and who it serves", 1)
