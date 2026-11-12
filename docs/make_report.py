@@ -16,6 +16,8 @@ J = lambda name: json.loads((R / f"{name}.json").read_text())  # noqa: E731
 inst, base, depth = J("instance"), J("baselines_main"), J("qaoa_depth")
 pen, cvar, gstats, hard = J("penalty_sweep"), J("cvar_sweep"), J("greedy_stats"), J("hard_case")
 supply, trade, noisy = J("supply_sweep"), J("tradeoffs"), J("noisy_sim")
+sang = json.loads((R / "sanghar.json").read_text(encoding="utf-8"))
+hwr = J("hardware_run")
 REPO = "https://github.com/raheemxghumman/antivenom-within-reach"
 INK = RGBColor(0x1F, 0x29, 0x33)
 ACCENT = RGBColor(0x2C, 0x5A, 0xA0)
@@ -125,6 +127,8 @@ r = t.add_run("Antivenom Within Reach")
 r.bold, r.font.size, r.font.color.rgb = True, Pt(22), ACCENT
 para("Quantum optimisation of snakebite antivenom placement in rural clinics", size=12.5)
 para("Qiskit Fall Fest 2026 · FAST NUCES Islamabad · Domain: Healthcare · SDG 3.3, 3.8, 10", size=9.5)
+para("Real district: Sanghar, Sindh, Pakistan (OpenStreetMap) · Run on IBM Quantum ibm_marrakesh "
+     f"(job {hwr['hardware']['job_id']})", size=9.5)
 para("Team: ______________________________", size=9.5)
 para(f"Code: {REPO}", size=9.5)
 para("Video (3 min): ______________________________", size=9.5)
@@ -142,9 +146,11 @@ para("A district health officer, or an NGO supporting one, can afford to stock a
      "bites reach antivenom within 6 hours? The answer must respect a hard budget, value children's "
      "bites, and account for clinics that would need a new solar fridge.",
      bold_lead="Decision maker. ")
-para("The problem is generic; we demonstrate it on a synthetic district modelled on rural "
-     "sub-Saharan Africa, where antivenom shortages are most severe. Swapping in another region's "
-     "clinic list and travel times needs no code change.", bold_lead="Scope. ")
+para("The problem is global. We apply it to a real district, Sanghar in Sindh, Pakistan, using the "
+     "real locations of its government Basic Health Units (BHUs), the Civil Hospital and 72 settlements "
+     "from OpenStreetMap, with modelled demand. A seeded synthetic benchmark district is used for the "
+     "controlled algorithm study and the real-hardware run. Swapping in another district's data needs no "
+     "code change.", bold_lead="Scope. ")
 
 # ---------------------------------------------------------------- 2
 doc.add_heading("2. Formulation", 1)
@@ -188,6 +194,9 @@ bullet(" X mixer with the budget as a penalty A(Σx − k)². Simple and shallow
 bullet(" Start in the equal superposition of all plans with exactly k clinics (a Dicke state) and "
        "mix with XX+YY gates, which preserve the number of stocked clinics (Hadfield et al., 2019). "
        "Every output is a valid plan and no penalty is needed.", "Constraint-preserving QAOA (XY mixer).")
+bullet(" A hardware-friendly version: start from one valid plan and mix only neighbouring qubits on "
+       "a ring. About half the two-qubit gates of standard QAOA; every ideal shot is still valid.",
+       "Ring-XY QAOA.")
 bullet(" Optimise the mean of the best α-fraction of outcomes instead of the full mean "
        "(Barkoutsos et al., 2020), which favours putting probability on the very best plans.", "CVaR objective.")
 para("Training: COBYLA with a linear-ramp start plus seeded random restarts; exact output "
@@ -266,6 +275,50 @@ bullet(f" Raising the child weight from λ = 0 to 4 changes the best plan in onl
 figure(R / "hard_greedy_vs_optimal.png", 16.2, f"Figure 3. Hard-case district (seed {hard['seed']}): greedy plan (left) "
        "vs optimal plan (right). Green villages reach antivenom within 6 h.")
 
+
+doc.add_heading("Real district: Sanghar, Sindh, Pakistan", 2)
+so, sg, sh = sang["optimal"], sang["greedy"], sang["hospital_only"]
+table(["Plan", "Sites stocked", "Bites within 1 h", "Child bites within 1 h"], [
+    ["Civil Hospital only", "—", pct(sh["share_bites_covered"]), pct(sh["share_child_bites_covered"])],
+    ["Exact optimum (84 plans)", ", ".join(so["sites"]), pct(so["share_bites_covered"]), pct(so["share_child_bites_covered"])],
+    ["Greedy", ", ".join(sg["sites"]), pct(sg["share_bites_covered"]), pct(sg["share_child_bites_covered"])],
+    ["Random valid plan (mean)", "—", f"score {sang['random_mean_over_optimal']:.2f} × optimum", ""],
+], [3.8, 6.4, 3.0, 3.4], bold_rows=(1,))
+sq3 = next(q for q in sang["qaoa"] if q["reps"] == 3 and q["alpha"] == 1.0)
+sqc = next(q for q in sang["qaoa"] if q["alpha"] < 1.0)
+para(f"{sang['settlements']} real settlements ({sang['people_modelled']:,} people modelled, about "
+     f"{sang['expected_envenomings_per_year']:.0f} envenomings a year), {len(sang['candidate_sites'])} candidate sites built from "
+     "15 real BHUs, 1-hour travel window. Stocking three sites raises the share of bites reaching antivenom "
+     f"within an hour from {pct(sh['share_bites_covered'])} to {pct(so['share_bites_covered'])}, about "
+     f"{(so['share_bites_covered'] - sh['share_bites_covered']) * sang['expected_envenomings_per_year']:.0f} more envenomings a year "
+     f"treated in time. Settlements can reach up to {sang['max_bhus_reaching_one_settlement']} sites, so the exact Hamiltonian has "
+     f"{sq3['hamiltonian_terms']} terms up to {sq3['max_term_order']}-body. QAOA (XY, p = 3) raises the expected plan score to "
+     f"{sq3['exact']['approx_ratio_valid']:.2f} of the optimum (random: {sang['random_mean_over_optimal']:.2f}); with CVaR "
+     f"(α = {sqc['alpha']}) the optimal plan becomes {sqc['exact']['boost_vs_random']:.1f}× more likely than random.")
+figure(R / "sanghar_map.png", 16.4, "Figure 4. Sanghar: real BHU and settlement locations (OpenStreetMap). Left: hospital only. "
+       "Right: optimal three BHU sites. Green settlements reach antivenom within one hour.")
+
+doc.add_heading("Run on a real IBM quantum computer", 2)
+hh = hwr["hardware"]
+para(f"Backend {hh['backend']} (IBM Heron, 156 qubits), job ID {hh['job_id']}, sent "
+     f"{hh['sent_utc'].replace('T', ' ').replace('+00:00', ' UTC')}, {hwr['shots']} shots per circuit, "
+     f"{hh.get('usage_quantum_seconds', '–')} s of quantum time. Both circuits were trained on the ideal simulator "
+     "(benchmark district, 9 qubits, p = 1), transpiled for the device and sent in one job. The raw counts are in "
+     "results/hardware_counts.json.")
+hrows = []
+for c in hwr["circuits"]:
+    nm = "Standard QAOA (X + penalty)" if c["mixer"] == "x" else "Ring-XY QAOA (ours)"
+    hrows.append([nm, str(c["two_qubit_gates"]),
+                  f"{pct(c['ideal']['valid_rate'], 0)} → {pct(c['noisy_simulation']['valid_rate'], 0)} → "
+                  f"{pct(c['real_hardware']['valid_rate'], 0)}",
+                  f"{c['real_hardware']['approx_ratio_valid']:.2f}"])
+table(["Circuit", "2-qubit gates", "Valid shots: ideal → noise model → real QPU", "Score / optimum on QPU"],
+      hrows, [4.6, 2.4, 6.2, 3.4], bold_rows=(1,))
+figure(R / "hardware_vs_sim.png", 16.0, "Figure 5. Ideal simulator vs IBM noise model vs the real ibm_marrakesh QPU.")
+para("The real device closely matches the noise-model prediction. The ring-XY circuit keeps more than twice as many "
+     "shots inside the budget as standard QAOA, uses half the two-qubit gates, and its valid plans score above a "
+     f"random plan (random: {base['random_mean_value'] / opt['value']:.2f}).")
+
 doc.add_heading("Noise study (IBM Heron noise model)", 2)
 nrows = []
 for r in noisy:
@@ -282,14 +335,16 @@ para("Transpiled for the 156-qubit Heron device model FakeMarrakesh and simulate
 
 # ---------------------------------------------------------------- 6
 doc.add_heading("6. Limitations (honest assessment)", 1)
-bullet(" The district is synthetic. Parameters come from published ranges, but no real village or clinic "
-       "is modelled. A real deployment needs real facility locations and travel-time data.", "Synthetic data.")
+bullet(" In Sanghar, facility and settlement locations are real but populations (except two towns), bite "
+       "incidence, child share and travel speeds are modelled from published ranges; the benchmark district is "
+       "fully synthetic. No public dataset gives snakebites per village.", "Modelled demand.")
 bullet(" At 9 qubits brute force solves the problem in milliseconds. We make no speed-up claim; the "
        "contribution is an exact quantum formulation measured against exact answers.", "No quantum advantage.")
 bullet(" At p ≤ 3, QAOA concentrates probability on good plans (up to about 10× random) but the optimum is "
        "not the single most likely plan; deeper circuits or warm starts would be needed.", "Shallow QAOA.")
-bullet(" The better algorithm (XY mixer) is the one that suffers most from noise on current hardware; "
-       "ring-shaped mixers or cheaper Dicke-state circuits would reduce depth.", "Noise.")
+bullet(" The all-pairs XY circuit is too deep for current hardware; our ring-XY version runs on the real "
+       "QPU, but noise reduces its valid-shot rate from 100% to 71%. BHUs closer than 8 km are merged to fit 9 "
+       "qubits.", "Noise and size.")
 bullet(" Coverage is binary (within 6 h or not). Rainy-season roads, travel-time uncertainty, vial "
        "quantities, stock expiry and upstream supply (manufacturers, lead times) are outside scope.", "Model scope.")
 
@@ -299,9 +354,11 @@ para("The main lesson was that how the constraint is encoded matters as much as 
      "same QAOA with a penalty did no better than random, while encoding the budget in the mixer made "
      "every shot useful. Keeping the three-body coverage terms exact also mattered, because a QUBO "
      "approximation would have optimised a different problem from the one we score.")
-bullet(" load real facility and road data (for example from a health-facility registry and road network) for one district.", "Real data:")
+bullet(" replace modelled demand with district health records and road travel times, and validate with "
+       "Sanghar health officials.", "Real demand data:")
 bullet(" vials per clinic as integer variables, and multiple seasons as scenarios.", "Richer model:")
-bullet(" hardware-efficient XY mixers and a real IBM QPU run of the shallow circuit.", "Hardware:")
+bullet(" error mitigation and deeper ring-XY circuits on IBM hardware; larger districts as qubit counts grow.",
+       "Hardware:")
 
 doc.add_heading("References", 1)
 for ref in [
