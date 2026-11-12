@@ -1,0 +1,60 @@
+[
+  {
+    "mixer": "x",
+    "reps": 1,
+    "backend_noise_model": "fake_marrakesh",
+    "transpiled_depth": 283,
+    "two_qubit_gates": 149,
+    "ideal": {
+      "valid_rate": 0.4217746224726808,
+      "p_optimal": 0.006485263553849324,
+      "random_p_optimal": 0.011904761904761904,
+      "boost_vs_random": 0.5447621385233432,
+      "approx_ratio_valid": 0.655599777416988,
+      "gain_over_random": 0.04165372188360687,
+      "most_likely_valid_plan": 385,
+      "most_likely_is_optimal": true,
+      "p_optimal_in_100_shots": 0.47828740345331044
+    },
+    "noisy_4096_shots": {
+      "valid_rate": 0.372802734375,
+      "p_optimal": 0.006103515625,
+      "random_p_optimal": 0.011904761904761904,
+      "boost_vs_random": 0.5126953125,
+      "approx_ratio_valid": 0.6589276579394836,
+      "gain_over_random": 0.050914058270238836,
+      "most_likely_valid_plan": 42,
+      "most_likely_is_optimal": false,
+      "p_optimal_in_100_shots": 0.4578550195118668
+    }
+  },
+  {
+    "mixer": "xy",
+    "reps": 1,
+    "backend_noise_model": "fake_marrakesh",
+    "transpiled_depth": 3052,
+    "two_qubit_gates": 1055,
+    "ideal": {
+      "valid_rate": 1.0000000000000002,
+      "p_optimal": 0.02428312589327018,
+      "random_p_optimal": 0.011904761904761904,
+      "boost_vs_random": 2.039782575034695,
+      "approx_ratio_valid": 0.7104823802004473,
+      "gain_over_random": 0.19437295567617807,
+      "most_likely_valid_plan": 25,
+      "most_likely_is_optimal": false,
+      "p_optimal_in_100_shots": 0.9144181683816126
+    },
+    "noisy_4096_shots": {
+      "valid_rate": 0.349365234375,
+      "p_optimal": 0.00341796875,
+      "random_p_optimal": 0.011904761904761904,
+      "boost_vs_random": 0.287109375,
+      "approx_ratio_valid": 0.645530277715315,
+      "gain_over_random": 0.013633799337632016,
+      "most_likely_valid_plan": 168,
+      "most_likely_is_optimal": false,
+      "p_optimal_in_100_shots": 0.2899233343272205
+    }
+  }
+]
