@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+.streamlit/secrets.toml
+# never commit IBM Quantum credentials
+qiskit-ibm.json
+*.env
+.env
+~$*.docx
