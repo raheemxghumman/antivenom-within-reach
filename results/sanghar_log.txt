@@ -1,0 +1,5 @@
+  Sanghar QAOA xy p=1 a=1.0: P(opt) 0.014 (1.1x)  AR 0.703  33s
+  Sanghar QAOA xy p=2 a=1.0: P(opt) 0.001 (0.1x)  AR 0.737  121s
+  Sanghar QAOA xy p=3 a=1.0: P(opt) 0.002 (0.2x)  AR 0.786  194s
+  Sanghar QAOA xy p=2 a=0.1: P(opt) 0.100 (8.4x)  AR 0.651  46s
+done in 396s

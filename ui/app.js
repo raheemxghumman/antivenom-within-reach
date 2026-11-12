@@ -12,12 +12,14 @@ Chart.defaults.plugins.legend.labels.boxHeight = 10;
 
 const pct = (x, d = 1) => (100 * x).toFixed(d) + "%";
 const qkey = () => [S.s, S.k, S.lam, S.mu, S.mixer, S.reps].join("|");
-const toast = (msg) => { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 2600); };
+const toast = (msg) => { if (location.hash.includes("still")) return; const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 2600); };
 
 /* ---------------- animated numbers ---------------- */
+const STILL = location.hash.includes("still");
 function countTo(el, to, fmt, ms = 900) {
+  if (STILL) { el._v = to; el.textContent = fmt(to); return; }
   const from = el._v ?? 0; const t0 = performance.now(); el._v = to;
-  const step = (t) => { const p = Math.min(1, (t - t0) / ms); const e = 1 - Math.pow(1 - p, 3);
+  const step = (t) => { const p = Math.max(0, Math.min(1, (t - t0) / ms)); const e = 1 - Math.pow(1 - p, 3);
     el.textContent = fmt(from + (to - from) * e); if (p < 1) requestAnimationFrame(step); };
   requestAnimationFrame(step);
 }
@@ -78,7 +80,7 @@ function drawDistrict(fit) {
     const pts = d.villages.map((v) => v.pos).concat(d.clinics.map((c) => c.pos));
     map.fitBounds(L.latLngBounds(pts).pad(0.08), { animate: false });
   }
-  const title = { none: "Hospital only", greedy: "Greedy plan", optimal: "Optimal plan (exact)", qaoa: "QAOA plan" }[S.plan];
+  const title = { none: "Hospital only", greedy: "Greedy plan", optimal: "Optimal plan (exact)", qaoa: "QAOA plan (best of its samples)" }[S.plan];
   $("#mapTitle").innerHTML = `<b>${title}${plan.names.length ? ": " + plan.names.join(", ") : ""}</b><span>${d.scenario.title} · antivenom within ${d.scenario.window}</span>`;
 }
 
@@ -180,6 +182,7 @@ function supplyChart() {
 
 /* ---------------- QAOA ---------------- */
 function replay(points, total) {
+  if (STILL) { addProgress(points); return Promise.resolve(); }
   return new Promise((done) => {
     const dur = 2600, t0 = performance.now(); let i = 0;
     const step = (t) => {
@@ -236,7 +239,8 @@ function showQaoa(res, announce) {
       <div><div class="lbl"><span>${p.names.join(" + ") || "(none)"}</span>${p.optimal ? '<span class="tag opt">optimal</span>' : p.valid ? "" : '<span class="tag inv">breaks budget</span>'}</div>
       <div class="track"><div class="fill" data-w="${(100 * p.prob / max).toFixed(1)}"></div></div></div>
       <div class="p">${pct(p.prob, 1)}</div></div>`).join("");
-  requestAnimationFrame(() => $$("#topPlans .fill").forEach((f) => (f.style.width = f.dataset.w + "%")));
+  const grow = () => $$("#topPlans .fill").forEach((f) => (f.style.width = f.dataset.w + "%"));
+  if (STILL) grow(); else requestAnimationFrame(grow);
   $("#runStatus").textContent = `Done in ${res.seconds.toFixed(1)} s · ${res.evals} circuit evaluations · ${res.terms} Hamiltonian terms (up to ${res.max_order}-body).`;
   const qb = $('#planSeg [data-p="qaoa"]'); qb.disabled = false;
   if (announce) { setPlan("qaoa"); toast(res.best_plan.score >= 0.9999 ? "QAOA found the optimal plan ✓" : `QAOA's best plan scores ${res.best_plan.score.toFixed(3)} of the optimum`); }
@@ -248,7 +252,7 @@ async function loadHardware() {
   if (!h.available) { $("#hwNote").textContent = "No hardware run found. Run: python run_hardware.py"; return; }
   const when = new Date(h.hardware.sent_utc);
   $("#hwMeta").innerHTML = `
-    <div><span>Backend</span><b>${h.hardware.backend} (IBM Heron, 156 qubits)</b></div>
+    <div><span>Backend</span><b>${h.hardware.backend} · IBM Heron · 156 qubits</b></div>
     <div><span>Job ID</span><b class="mono">${h.hardware.job_id}</b></div>
     <div><span>Sent</span><b>${when.toUTCString().replace(" GMT", " UTC")}</b></div>
     <div><span>Quantum time · shots</span><b>${h.hardware.usage_quantum_seconds ?? "–"} s · ${h.shots} per circuit</b></div>`;
@@ -293,6 +297,8 @@ function init() {
   $("#runBtn").addEventListener("click", runQaoa);
   window.addEventListener("resize", () => { moveInk(sc, pill); moveInk(tabs, ink); });
   requestAnimationFrame(() => { moveInk(sc, pill); moveInk(tabs, ink); });
+  document.fonts?.ready.then(() => { moveInk(sc, pill); moveInk(tabs, ink); });
+  if (STILL) document.documentElement.classList.add("still");
   convChart(); load(true);
   // deep links, e.g. #s=hard&tab=hardware&plan=greedy&run=1
   const h = new URLSearchParams(location.hash.slice(1));

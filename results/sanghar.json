@@ -1,0 +1,270 @@
+{
+  "district": "Sanghar, Sindh, Pakistan",
+  "data": "OpenStreetMap (facility and settlement locations); demand modelled",
+  "settlements": 72,
+  "people_modelled": 341756,
+  "expected_envenomings_per_year": 618.6257134112343,
+  "candidate_sites": [
+    "Hathongo",
+    "Kalu Rajar",
+    "Malook Mehar (+2 BHUs)",
+    "Tando Mitha Khan (+1 BHU)",
+    "Qazi Wali Muhammad Rajar (+1 BHU)",
+    "Peru Mal (+2 BHUs)",
+    "Dhani Parto Rajpar",
+    "Bassi",
+    "Nauabad"
+  ],
+  "window_hours": 1.0,
+  "budget_k": 3,
+  "settlements_covered_by_hospital": 31,
+  "settlements_decided_by_bhus": 27,
+  "max_bhus_reaching_one_settlement": 8,
+  "hospital_only": {
+    "stocked": [],
+    "villages_covered": 31,
+    "villages_total": 72,
+    "bites_covered_per_year": 321.975781076777,
+    "bites_total_per_year": 618.6257134112343,
+    "share_bites_covered": 0.5204694439572093,
+    "child_bites_covered_per_year": 131.95983014703882,
+    "share_child_bites_covered": 0.5141603424357307,
+    "new_fridges_needed": 0
+  },
+  "optimal": {
+    "value": 304.8316888443188,
+    "stocked": [
+      "C3",
+      "C4",
+      "C9"
+    ],
+    "villages_covered": 56,
+    "villages_total": 72,
+    "bites_covered_per_year": 536.4177116501756,
+    "bites_total_per_year": 618.6257134112343,
+    "share_bites_covered": 0.8671118901480086,
+    "child_bites_covered_per_year": 222.34958841795896,
+    "share_child_bites_covered": 0.8663495579983284,
+    "new_fridges_needed": 3,
+    "sites": [
+      "Malook Mehar (+2 BHUs)",
+      "Tando Mitha Khan (+1 BHU)",
+      "Nauabad"
+    ]
+  },
+  "greedy": {
+    "value": 304.8316888443188,
+    "stocked": [
+      "C3",
+      "C4",
+      "C9"
+    ],
+    "villages_covered": 56,
+    "villages_total": 72,
+    "bites_covered_per_year": 536.4177116501756,
+    "bites_total_per_year": 618.6257134112343,
+    "share_bites_covered": 0.8671118901480086,
+    "child_bites_covered_per_year": 222.34958841795896,
+    "share_child_bites_covered": 0.8663495579983284,
+    "new_fridges_needed": 3,
+    "sites": [
+      "Malook Mehar (+2 BHUs)",
+      "Tando Mitha Khan (+1 BHU)",
+      "Nauabad"
+    ]
+  },
+  "random_mean_over_optimal": 0.6542353599464079,
+  "supply_sweep": [
+    {
+      "k": 1,
+      "share_bites": 0.6924587976905551,
+      "sites": [
+        "Malook Mehar (+2 BHUs)"
+      ]
+    },
+    {
+      "k": 2,
+      "share_bites": 0.8205685639262965,
+      "sites": [
+        "Malook Mehar (+2 BHUs)",
+        "Nauabad"
+      ]
+    },
+    {
+      "k": 3,
+      "share_bites": 0.8671118901480086,
+      "sites": [
+        "Malook Mehar (+2 BHUs)",
+        "Tando Mitha Khan (+1 BHU)",
+        "Nauabad"
+      ]
+    },
+    {
+      "k": 4,
+      "share_bites": 0.8744905219688678,
+      "sites": [
+        "Malook Mehar (+2 BHUs)",
+        "Tando Mitha Khan (+1 BHU)",
+        "Dhani Parto Rajpar",
+        "Nauabad"
+      ]
+    },
+    {
+      "k": 5,
+      "share_bites": 0.8744905219688678,
+      "sites": [
+        "Hathongo",
+        "Malook Mehar (+2 BHUs)",
+        "Tando Mitha Khan (+1 BHU)",
+        "Dhani Parto Rajpar",
+        "Nauabad"
+      ]
+    }
+  ],
+  "qaoa": [
+    {
+      "mixer": "xy",
+      "reps": 1,
+      "alpha": 1.0,
+      "train_seconds": 32.501444578170776,
+      "hamiltonian_terms": 263,
+      "max_term_order": 8,
+      "exact": {
+        "valid_rate": 1.0,
+        "p_optimal": 0.013588041255000379,
+        "random_p_optimal": 0.011904761904761904,
+        "boost_vs_random": 1.1413954654200318,
+        "approx_ratio_valid": 0.7033206575953795,
+        "gain_over_random": 0.14196158878873083,
+        "most_likely_valid_plan": 137,
+        "most_likely_is_optimal": false,
+        "p_optimal_in_100_shots": 0.7454149611443495
+      },
+      "sampled_4096": {
+        "valid_rate": 1.0,
+        "p_optimal": 0.021728515625,
+        "random_p_optimal": 0.011904761904761904,
+        "boost_vs_random": 1.8251953125,
+        "approx_ratio_valid": 0.671164901125423,
+        "gain_over_random": 0.04896261565783918,
+        "most_likely_valid_plan": 161,
+        "most_likely_is_optimal": false,
+        "p_optimal_in_100_shots": 0.8888423270226578
+      },
+      "theta": [
+        1.9351991186222477,
+        2.1156547893570665
+      ]
+    },
+    {
+      "mixer": "xy",
+      "reps": 2,
+      "alpha": 1.0,
+      "train_seconds": 121.07975316047668,
+      "hamiltonian_terms": 263,
+      "max_term_order": 8,
+      "exact": {
+        "valid_rate": 1.0,
+        "p_optimal": 0.0007673260104539778,
+        "random_p_optimal": 0.011904761904761904,
+        "boost_vs_random": 0.06445538487813414,
+        "approx_ratio_valid": 0.737253809513955,
+        "gain_over_random": 0.24010103969763816,
+        "most_likely_valid_plan": 273,
+        "most_likely_is_optimal": false,
+        "p_optimal_in_100_shots": 0.07388980985100757
+      },
+      "sampled_4096": {
+        "valid_rate": 1.0,
+        "p_optimal": 0.0068359375,
+        "random_p_optimal": 0.011904761904761904,
+        "boost_vs_random": 0.57421875,
+        "approx_ratio_valid": 0.6626250796993725,
+        "gain_over_random": 0.024264250247405576,
+        "most_likely_valid_plan": 74,
+        "most_likely_is_optimal": false,
+        "p_optimal_in_100_shots": 0.4963838736022871
+      },
+      "theta": [
+        3.3463882162614493,
+        1.454056163259806,
+        0.3450293356705051,
+        0.9154153096470693
+      ]
+    },
+    {
+      "mixer": "xy",
+      "reps": 3,
+      "alpha": 1.0,
+      "train_seconds": 193.59498763084412,
+      "hamiltonian_terms": 263,
+      "max_term_order": 8,
+      "exact": {
+        "valid_rate": 1.0000000000000002,
+        "p_optimal": 0.002171552212592327,
+        "random_p_optimal": 0.011904761904761904,
+        "boost_vs_random": 0.18241038585775549,
+        "approx_ratio_valid": 0.7860631540128995,
+        "gain_over_random": 0.38126453314040093,
+        "most_likely_valid_plan": 386,
+        "most_likely_is_optimal": false,
+        "p_optimal_in_100_shots": 0.19538497447138903
+      },
+      "sampled_4096": {
+        "valid_rate": 1.0,
+        "p_optimal": 0.014404296875,
+        "random_p_optimal": 0.011904761904761904,
+        "boost_vs_random": 1.2099609375,
+        "approx_ratio_valid": 0.6561685389418557,
+        "gain_over_random": 0.005591025719541638,
+        "most_likely_valid_plan": 448,
+        "most_likely_is_optimal": false,
+        "p_optimal_in_100_shots": 0.765641805112218
+      },
+      "theta": [
+        1.7493838791855898,
+        2.8082540027472396,
+        2.4297061743848354,
+        0.2214948194188643,
+        -0.005778614566827373,
+        1.5973543533313241
+      ]
+    },
+    {
+      "mixer": "xy",
+      "reps": 2,
+      "alpha": 0.1,
+      "train_seconds": 45.93044137954712,
+      "hamiltonian_terms": 263,
+      "max_term_order": 8,
+      "exact": {
+        "valid_rate": 1.0,
+        "p_optimal": 0.10004884040672965,
+        "random_p_optimal": 0.011904761904761904,
+        "boost_vs_random": 8.404102594165291,
+        "approx_ratio_valid": 0.6508849023045139,
+        "gain_over_random": -0.009689995024866612,
+        "most_likely_valid_plan": 268,
+        "most_likely_is_optimal": true,
+        "p_optimal_in_100_shots": 0.9999735823556613
+      },
+      "sampled_4096": {
+        "valid_rate": 1.0,
+        "p_optimal": 0.005615234375,
+        "random_p_optimal": 0.011904761904761904,
+        "boost_vs_random": 0.4716796875,
+        "approx_ratio_valid": 0.6457235658336721,
+        "gain_over_random": -0.02461730647592137,
+        "most_likely_valid_plan": 164,
+        "most_likely_is_optimal": false,
+        "p_optimal_in_100_shots": 0.43056230615493085
+      },
+      "theta": [
+        2.2719765344211065,
+        2.7777676707789243,
+        0.9294536157165997,
+        -0.0032566215022676167
+      ]
+    }
+  ]
+}

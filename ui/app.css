@@ -174,13 +174,13 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 .hw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
 .hw-grid div { padding: 9px 10px; border-radius: 11px; background: rgba(0, 0, 0, .2); border: 1px solid var(--line); }
 .hw-grid span { display: block; font-size: 10.5px; color: var(--muted); }
-.hw-grid b { font-size: 13px; word-break: break-all; }
+.hw-grid b { font-size: 13px; overflow-wrap: anywhere; }
 .hw-grid b.mono { font-family: "JetBrains Mono", monospace; font-size: 12px; color: #a5f3fc; }
 .prose ol { padding-left: 18px; margin: 10px 0; }
 .steps li { margin-bottom: 8px; color: #cbd5e1; font-size: 12.5px; }
 .steps li b { color: #fff; }
 
-.toast { position: fixed; bottom: 22px; left: 50%; transform: translate(-50%, 30px); opacity: 0; padding: 11px 16px; border-radius: 12px; background: rgba(15, 23, 42, .95); border: 1px solid var(--line2); box-shadow: var(--shadow); font-weight: 600; z-index: 2000; transition: all .45s var(--ease); pointer-events: none; }
+.toast { position: fixed; bottom: 86px; left: 50%; transform: translate(-50%, 24px); opacity: 0; padding: 11px 16px; border-radius: 12px; background: rgba(15, 23, 42, .95); border: 1px solid var(--line2); box-shadow: var(--shadow); font-weight: 600; z-index: 2000; transition: all .45s var(--ease); pointer-events: none; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
 /* ---------- motion ---------- */
@@ -193,6 +193,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 @keyframes dash { to { stroke-dashoffset: -24; } }
 @keyframes ring { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(1.5); opacity: 0; } }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, .55); } 70% { box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); } 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); } }
+.still *, .still *::before, .still *::after { animation-duration: 0s !important; animation-delay: 0s !important; transition: none !important; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 
 @media (max-width: 1250px) {
