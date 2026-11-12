@@ -8,6 +8,8 @@
 
 *Which clinics should stock antivenom so that the most bites — children's weighted higher — reach treatment in time?*
 
+**Team 404 Not Found** · Wania Rahman (Team Lead) · Abdulraheem · Usaidullah Rehan
+
 [![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Qiskit](https://img.shields.io/badge/Qiskit-2.6-6929C4?logo=qiskit&logoColor=white)](https://www.ibm.com/quantum/qiskit)
 [![Qiskit Aer](https://img.shields.io/badge/Qiskit%20Aer-0.18-6929C4)](https://github.com/Qiskit/qiskit-aer)
@@ -42,12 +44,22 @@
 | 🖥️ **Real hardware** | IBM **ibm_marrakesh**, job [`dbqtg71abdes73fot410`](#3-real-ibm-quantum-computer): our ring-XY circuit kept **71%** of shots valid vs **31%** for standard QAOA, with half the two-qubit gates |
 | ⚖️ **Honest baseline** | Greedy is optimal on 91 of 100 districts but misses by up to **10.6%** on the rest — we show one such case and QAOA finding the optimum |
 
+## Team
+
+**Team 404 Not Found** · Qiskit Fall Fest 2026, FAST NUCES Islamabad
+
+| Member | Role |
+|---|---|
+| Wania Rahman | Team Lead |
+| Abdulraheem | Team Member |
+| Usaidullah Rehan | Team Member |
+
 ## Contents
 
-- [The problem](#the-problem) · [Formulation](#formulation) · [Architecture](#architecture)
+- [Team](#team) · [The problem](#the-problem) · [Formulation](#formulation) · [Architecture](#architecture)
 - [Results](#results): [real district](#1-real-district-sanghar-sindh) · [benchmark](#2-benchmark-district) · [real QPU](#3-real-ibm-quantum-computer)
 - [Demo app](#demo-app) · [Demo video](#demo-video) · [Run it](#run-it) · [Verify in 2 minutes](#verify-in-2-minutes)
-- [Honest limitations](#honest-limitations) · [Hackathon checklist](#hackathon-checklist) · [Repository](#repository) · [Team](#team) · [Credits](#credits-and-references)
+- [Honest limitations](#honest-limitations) · [Hackathon checklist](#hackathon-checklist) · [Repository](#repository) · [Credits](#credits-and-references)
 
 ## The problem
 
@@ -290,16 +302,6 @@ antivenom-within-reach/
 ├── results/               JSON results, figures, real-QPU counts
 └── docs/                  report (.docx), data sources, architecture, screenshots, video script
 ```
-
-## Team
-
-**Team 404 Not Found** · Qiskit Fall Fest 2026, FAST NUCES Islamabad
-
-| Member | Role |
-|---|---|
-| Wania Rahman | Team Lead |
-| Abdulraheem | Team Member |
-| Usaidullah Rehan | Team Member |
 
 ## Credits and references
 
