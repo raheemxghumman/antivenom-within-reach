@@ -5,4 +5,3 @@ qiskit-ibm-runtime==0.52.0
 numpy==2.5.4
 scipy==1.18.1
 matplotlib==3.11.2
-streamlit==1.67.0

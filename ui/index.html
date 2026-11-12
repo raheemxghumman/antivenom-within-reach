@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Antivenom Within Reach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 40 40" aria-hidden="true">
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5eead4"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs>
+        <rect x="2" y="2" width="36" height="36" rx="11" fill="url(#lg)"/>
+        <path d="M16 9h8v4h-1v4.2l5.6 9.7A3.4 3.4 0 0 1 25.7 32H14.3a3.4 3.4 0 0 1-2.9-5.1L17 17.2V13h-1z" fill="#fff" opacity=".95"/>
+        <path d="M13.6 26h12.8l1.2 2.1a1.2 1.2 0 0 1-1 1.8H13.4a1.2 1.2 0 0 1-1-1.8z" fill="#6366f1" opacity=".55"/>
+      </svg>
+      <div>
+        <h1>Antivenom Within Reach</h1>
+        <p>Which clinics should stock snakebite antivenom? Solved with QAOA on Qiskit.</p>
+      </div>
+    </div>
+    <nav class="scenarios" id="scenarios" aria-label="Scenario">
+      <button data-s="sanghar" class="active"><span class="dot live"></span>Sanghar, Sindh <em>real map</em></button>
+      <button data-s="benchmark">Benchmark</button>
+      <button data-s="hard">Hard case</button>
+      <span class="slider-pill" aria-hidden="true"></span>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <!-- left column -->
+    <aside class="panel controls">
+      <section class="card kpis">
+        <div class="kpi"><span class="kpi-label">Bites within reach</span><span class="kpi-val" id="kpiBites">–</span><span class="kpi-delta" id="kpiBitesD"></span></div>
+        <div class="kpi"><span class="kpi-label">Child bites within reach</span><span class="kpi-val" id="kpiChild">–</span><span class="kpi-delta" id="kpiChildD"></span></div>
+        <div class="kpi"><span class="kpi-label">Extra people treated in time / yr</span><span class="kpi-val" id="kpiExtra">–</span><span class="kpi-delta muted" id="kpiWindow"></span></div>
+        <div class="kpi"><span class="kpi-label">Score vs optimum</span><span class="kpi-val" id="kpiScore">–</span><span class="kpi-delta muted" id="kpiRandom"></span></div>
+      </section>
+      <section class="card">
+        <h2>Show plan</h2>
+        <div class="seg" id="planSeg">
+          <button data-p="none">Hospital only</button>
+          <button data-p="greedy">Greedy</button>
+          <button data-p="optimal" class="active">Optimal</button>
+          <button data-p="qaoa" disabled title="Run QAOA first">QAOA</button>
+        </div>
+        <ul class="planlist" id="planList"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Scenario</h2>
+        <p class="muted small" id="scenarioNote"></p>
+        <div class="field">
+          <label for="k">Clinics that can stock antivenom <b id="kVal">3</b></label>
+          <input type="range" id="k" min="1" max="5" step="1" value="3">
+        </div>
+        <div class="field">
+          <label for="lam">Child-equity weight λ <b id="lamVal">1.0</b></label>
+          <input type="range" id="lam" min="0" max="4" step="0.5" value="1">
+          <span class="hint">a child's bite counts (1 + λ)×</span>
+        </div>
+        <div class="field">
+          <label for="mu">Cost of a new solar fridge μ <b id="muVal">0</b></label>
+          <input type="range" id="mu" min="0" max="10" step="1" value="0">
+          <span class="hint">in weighted bites per year</span>
+        </div>
+      </section>
+
+    </aside>
+
+    <!-- centre -->
+    <section class="panel mapwrap">
+      <div id="map"></div>
+      <div class="legend glass">
+        <span><i class="lg-dot ok"></i>antivenom within reach</span>
+        <span><i class="lg-dot bad"></i>out of reach</span>
+        <span><i class="lg-sq on"></i>stocks antivenom</span>
+        <span><i class="lg-sq"></i>candidate clinic</span>
+        <span><i class="lg-h"></i>district hospital</span>
+      </div>
+      <div class="maptitle glass" id="mapTitle"></div>
+    </section>
+
+    <!-- right column -->
+    <aside class="panel right">
+      <div class="tabs" id="tabs">
+        <button data-t="quantum" class="active">Quantum solver</button>
+        <button data-t="hardware">Real QPU</button>
+        <button data-t="method">Method</button>
+        <span class="tab-ink" aria-hidden="true"></span>
+      </div>
+
+      <div class="tabpane active" data-pane="quantum">
+        <section class="card">
+          <div class="row between">
+            <h2>QAOA</h2>
+            <span class="chip" id="qubitChip">9 qubits</span>
+          </div>
+          <div class="seg small" id="mixerSeg">
+            <button data-m="xy" class="active" title="Constraint-preserving: every shot is a valid plan">XY mixer</button>
+            <button data-m="x" title="Standard QAOA with a budget penalty">X mixer + penalty</button>
+          </div>
+          <div class="field compact">
+            <label for="reps">Circuit depth p <b id="repsVal">2</b></label>
+            <input type="range" id="reps" min="1" max="3" step="1" value="2">
+          </div>
+          <button class="run" id="runBtn"><span class="run-label">Run QAOA</span><span class="spinner"></span></button>
+          <div class="progress"><div class="bar" id="progBar"></div></div>
+          <p class="muted small" id="runStatus">Trains on the Qiskit Aer simulator; every number is checked against the exact optimum.</p>
+        </section>
+        <section class="card">
+          <h3>Training: energy ⟨H⟩ falling</h3>
+          <div class="chartbox"><canvas id="convChart"></canvas></div>
+        </section>
+        <section class="card">
+          <h3>What the circuit outputs</h3>
+          <div class="metrics" id="qMetrics">
+            <div><span>P(optimal plan)</span><b id="mPopt">–</b><em id="mBoost"></em></div>
+            <div><span>Valid shots</span><b id="mValid">–</b><em>budget kept</em></div>
+            <div><span>Expected score</span><b id="mAR">–</b><em id="mRand"></em></div>
+          </div>
+          <div id="topPlans" class="topplans"></div>
+        </section>
+      </div>
+
+      <div class="tabpane" data-pane="hardware">
+        <section class="card hw" id="hwCard">
+          <div class="row between"><h2>Ran on a real quantum computer</h2><span class="chip live"><span class="dot live"></span>IBM Quantum</span></div>
+          <div class="hw-grid" id="hwMeta"></div>
+          <div class="chartbox tall"><canvas id="hwChart"></canvas></div>
+          <p class="muted small" id="hwNote"></p>
+        </section>
+      </div>
+
+      <div class="tabpane" data-pane="method">
+        <section class="card prose">
+          <h2>How it works</h2>
+          <ol class="steps">
+            <li><b>Decision.</b> One qubit per candidate clinic: 1 = stock antivenom.</li>
+            <li><b>Objective.</b> Maximise bites that reach antivenom in time; children's bites weigh more; new fridges cost.</li>
+            <li><b>Overlap.</b> A village two clinics reach counts once: <code>1 − (1−x<sub>a</sub>)(1−x<sub>b</sub>)</code>. That is what makes greedy imperfect.</li>
+            <li><b>Exact Hamiltonian.</b> Coverage becomes Z, ZZ, ZZZ… terms, with no truncation and no extra qubits. Verified equal to brute force on all plans.</li>
+            <li><b>QAOA.</b> The XY mixer keeps exactly k clinics on, so every shot is a valid plan; the X mixer needs a penalty.</li>
+            <li><b>Honest check.</b> Brute force, greedy and random plans score every result with the same exact objective.</li>
+          </ol>
+          <p class="muted small" id="methodNote"></p>
+        </section>
+        <section class="card">
+          <h3>Supply: coverage vs number of stocked clinics</h3>
+          <div class="chartbox"><canvas id="supplyChart"></canvas></div>
+        </section>
+      </div>
+    </aside>
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

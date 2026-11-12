@@ -1,103 +1,249 @@
-"""Interactive demo:  streamlit run app.py
+"""Antivenom Within Reach - interactive demo.
 
-Pick a district, a stock budget and the child-equity weight, then compare the exact optimum,
-greedy and QAOA on the map. QAOA runs live on the Qiskit Aer simulator (a few seconds).
+    python app.py            # opens the app in your browser (http://127.0.0.1:8765)
+    python app.py --window   # opens it in a desktop window instead (needs: pip install pywebview)
+
+A small JSON API (Python standard library only) in front of the same solvers that produce the
+report: exact brute force, greedy and QAOA on the Qiskit Aer simulator. QAOA runs in a
+background thread and streams its training progress, so the UI can show it converging live.
 """
 from __future__ import annotations
 
+import argparse
+import json
+import threading
 import time
+import uuid
+import webbrowser
+from functools import lru_cache
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 
-import matplotlib.pyplot as plt
 import numpy as np
-import streamlit as st
 
 from avr.classical import brute_force, greedy, random_baseline
 from avr.instance import make_district
 from avr.model import all_bitstrings, plan_report, plan_values
-from avr.plots import district_map, top_plans_bar
-from avr.quantum import run_qaoa, sample, summarize
+from avr.quantum import run_qaoa, summarize
+from avr.sanghar import make_sanghar
 
-st.set_page_config(page_title="Antivenom Within Reach", layout="wide")
-st.title("Antivenom Within Reach")
-st.caption("Which rural clinics should stock snakebite antivenom? Exact search vs greedy vs QAOA "
-           "(Qiskit). The district is synthetic; see docs/data_sources.md.")
+ROOT = Path(__file__).resolve().parent
+UI = ROOT / "ui"
+RESULTS = ROOT / "results"
 
-with st.sidebar:
-    st.header("Scenario")
-    preset = st.radio("District", ["Main district (seed 2026)", "Hard case: greedy fails (seed 82)", "Custom seed"])
-    seed = {"Main district (seed 2026)": 2026, "Hard case: greedy fails (seed 82)": 82}.get(preset)
-    if seed is None:
-        seed = int(st.number_input("seed", 0, 10_000, 7))
-    k = st.slider("Clinics that can stock antivenom (k)", 1, 6, 3)
-    lam = st.slider("Child-equity weight λ (a child's bite counts 1+λ)", 0.0, 4.0, 1.0, 0.5)
-    mu = st.slider("Cost of a new solar fridge μ (in weighted bites/yr)", 0.0, 10.0, 0.0, 1.0)
-    st.header("Quantum solver")
-    mixer = st.radio("QAOA variant", ["XY mixer (constraint-preserving)", "X mixer + budget penalty"])
-    reps = st.slider("QAOA depth p", 1, 3, 2)
-    go = st.button("Run QAOA", type="primary")
+SCENARIOS = {
+    "sanghar": {"title": "Sanghar, Sindh (real map)", "geo": True, "window": "1 hour",
+                "note": "Real BHU, hospital and settlement locations from OpenStreetMap; populations and bite rates modelled."},
+    "benchmark": {"title": "Benchmark district", "geo": False, "window": "6 hours",
+                  "note": "Synthetic district (seed 2026) used for the main benchmark and the real-QPU run."},
+    "hard": {"title": "Hard case: greedy fails", "geo": False, "window": "6 hours",
+             "note": "Synthetic district (seed 82), one of 9 in 100 where greedy misses the optimum."},
+}
 
 
-@st.cache_data(show_spinner=False)
-def classical(seed, k, lam, mu):
-    d = make_district(seed)
-    return d, brute_force(d, k, lam, mu), greedy(d, k, lam, mu), random_baseline(d, k, lam, mu)
+@lru_cache(maxsize=None)
+def district(sid: str):
+    if sid == "sanghar":
+        return make_sanghar()
+    return make_district(2026 if sid == "benchmark" else 82)
 
 
-@st.cache_data(show_spinner=False)
-def quantum(seed, k, lam, mu, mixer_key, reps):
-    d = make_district(seed)
-    pen = float(d.weights(lam).max()) if mixer_key == "x" else 0.0
-    r = run_qaoa(d, k, lam, mu, reps=reps, mixer=mixer_key, penalty=pen, restarts=2, maxiter=150)
-    return r["probs"], sample(r, shots=2048), r["train_seconds"]
+def labels(d, sid):
+    if sid == "sanghar":
+        return d.clinic_labels, d.village_labels
+    return d.clinic_names, [f"Village {i + 1}" for i in range(d.n_villages)]
 
 
-d, bf, gr, rb = classical(seed, k, lam, mu)
-n = d.n_clinics
-vals = plan_values(d, all_bitstrings(n), lam, mu)
-mixer_key = "xy" if mixer.startswith("XY") else "x"
+def positions(d, sid):
+    if sid == "sanghar":
+        return d.clinic_latlon.tolist(), d.village_latlon.tolist(), d.hospital_latlon.tolist()
+    # synthetic districts are drawn on a plain km grid: [y, x]
+    return (d.clinic_xy[:, ::-1].tolist(), d.village_xy[:, ::-1].tolist(), d.hospital_xy[::-1].tolist())
 
-rows = {"Exact optimum (brute force, all plans)": bf["plan"], "Greedy max-coverage": gr["plan"]}
-qres = None
-if go or st.session_state.get("last") == (seed, k, lam, mu, mixer_key, reps):
-    with st.spinner("Training QAOA on the Aer simulator..."):
-        t = time.time()
-        probs, counts, secs = quantum(seed, k, lam, mu, mixer_key, reps)
-    st.session_state["last"] = (seed, k, lam, mu, mixer_key, reps)
-    valid = all_bitstrings(n).sum(1) == k
-    best_shot = int(np.argmax(np.where(valid & (counts > 0), vals, -np.inf)))
-    rows["QAOA (best of 2048 shots)"] = all_bitstrings(n)[best_shot]
-    qres = (probs, counts, secs, summarize(probs, vals, k, bf["value"], rb["mean"], n))
 
-choice = st.selectbox("Show plan on map", list(rows))
-left, right = st.columns([1.15, 1])
-with left:
-    fig = district_map(d, rows[choice], title=choice)
-    st.pyplot(fig, clear_figure=True)
-with right:
-    st.subheader("Plans compared")
-    table = []
-    for name, plan in rows.items():
-        rep = plan_report(d, plan)
-        table.append({"method": name, "clinics": ", ".join(rep["stocked"]),
-                      "bites within 6 h": f"{100 * rep['share_bites_covered']:.1f}%",
-                      "child bites within 6 h": f"{100 * rep['share_child_bites_covered']:.1f}%",
-                      "new fridges": rep["new_fridges_needed"],
-                      "score / optimum": f"{plan_values(d, plan, lam, mu)[0] / bf['value']:.3f}"})
-    st.dataframe(table, hide_index=True, width="stretch")
-    st.caption(f"Random valid plan scores {rb['mean'] / bf['value']:.3f} of the optimum on average. "
-               f"{bf['n_plans']} valid plans out of {2 ** n} bitstrings.")
-    if qres:
-        probs, counts, secs, s = qres
-        c1, c2, c3 = st.columns(3)
-        c1.metric("P(optimal plan)", f"{s['p_optimal']:.3f}", f"{s['boost_vs_random']:.1f}x random")
-        c2.metric("Valid samples", f"{100 * s['valid_rate']:.0f}%")
-        c3.metric("Expected score / optimum", f"{s['approx_ratio_valid']:.3f}")
-        st.caption(f"Trained in {secs:.1f}s on 9 qubits, depth p={reps}.")
-    else:
-        st.info("Press **Run QAOA** in the sidebar to solve the same problem on a quantum circuit.")
+def plan_payload(d, plan, lam, mu, opt_value, cnames):
+    rep = plan_report(d, plan)
+    x = np.asarray(plan, bool)
+    covered = d.hospital_covers | d.reach[:, x].any(axis=1)
+    return {"plan": [int(v) for v in np.asarray(plan).astype(int)], "names": [cnames[i] for i in np.where(x)[0]],
+            "score": float(plan_values(d, plan, lam, mu)[0] / opt_value), "covered": covered.astype(int).tolist(),
+            **{k: rep[k] for k in ("share_bites_covered", "share_child_bites_covered", "bites_covered_per_year",
+                                   "child_bites_covered_per_year", "villages_covered", "new_fridges_needed")}}
 
-if qres:
-    st.subheader("What the quantum circuit outputs")
-    fig = top_plans_bar(d, qres[0], vals, bf["value"], k, title="Most likely plans after training")
-    st.pyplot(fig, clear_figure=True)
-plt.close("all")
+
+@lru_cache(maxsize=256)
+def state(sid: str, k: int, lam: float, mu: float) -> dict:
+    d = district(sid)
+    cnames, vnames = labels(d, sid)
+    cpos, vpos, hpos = positions(d, sid)
+    bf, gr, rb = brute_force(d, k, lam, mu), greedy(d, k, lam, mu), random_baseline(d, k, lam, mu)
+    none = plan_report(d, np.zeros(d.n_clinics, int))
+    sweep = []
+    for kk in range(1, min(6, d.n_clinics) + 1):
+        b = brute_force(d, kk, lam, mu)
+        g = greedy(d, kk, lam, mu)
+        sweep.append({"k": kk, "optimal": plan_report(d, b["plan"])["share_bites_covered"],
+                      "greedy": plan_report(d, g["plan"])["share_bites_covered"]})
+    return {
+        "scenario": {"id": sid, **SCENARIOS[sid]},
+        "k": k, "lam": lam, "mu": mu, "n_qubits": d.n_clinics, "n_valid_plans": bf["n_plans"],
+        "clinics": [{"name": cnames[i], "pos": cpos[i], "fridge": bool(d.clinic_fridge[i]),
+                     "members": (getattr(d, "clinic_members", None) or [[nm] for nm in cnames])[i],
+                     "reach": np.where(d.reach[:, i] & ~d.hospital_covers)[0].tolist()} for i in range(d.n_clinics)],
+        "villages": [{"name": vnames[v], "pos": vpos[v], "pop": int(d.village_pop[v]),
+                      "bites": float(d.envenomings[v]), "child_bites": float(d.child_envenomings[v]),
+                      "hospital": bool(d.hospital_covers[v])} for v in range(d.n_villages)],
+        "hospital": {"name": getattr(d, "hospital_label", "District hospital"), "pos": hpos},
+        "totals": {"people": int(d.village_pop.sum()), "bites": float(d.envenomings.sum())},
+        "hospital_only": {"share_bites_covered": none["share_bites_covered"],
+                          "share_child_bites_covered": none["share_child_bites_covered"],
+                          "villages_covered": none["villages_covered"]},
+        "optimal": plan_payload(d, bf["plan"], lam, mu, bf["value"], cnames),
+        "greedy": plan_payload(d, gr["plan"], lam, mu, bf["value"], cnames),
+        "random_score": rb["mean"] / bf["value"],
+        "supply": sweep,
+    }
+
+
+JOBS: dict[str, dict] = {}
+RESTARTS, MAXITER = 3, 160
+QCACHE: dict[tuple, dict] = {}
+
+
+def qaoa_job(jid, sid, k, lam, mu, mixer, reps):
+    job = JOBS[jid]
+    key = (sid, k, lam, mu, mixer, reps)
+    try:
+        if key in QCACHE:
+            job["progress"] = list(QCACHE[key]["progress"])
+            job.update(status="done", result=QCACHE[key]["result"], cached=True)
+            return
+        d = district(sid)
+        cnames, _ = labels(d, sid)
+        n = d.n_clinics
+        vals = plan_values(d, all_bitstrings(n), lam, mu)
+        bf, rb = brute_force(d, k, lam, mu), random_baseline(d, k, lam, mu)
+
+        def cb(restart, n_evals, value):
+            job["progress"].append([restart, n_evals, round(float(value), 5)])
+
+        pen = float(d.weights(lam).max()) if mixer == "x" else 0.0
+        t0 = time.time()
+        r = run_qaoa(d, k, lam, mu, reps=reps, mixer=mixer, penalty=pen, restarts=RESTARTS, maxiter=MAXITER, callback=cb)
+        s = summarize(r["probs"], vals, k, bf["value"], rb["mean"], n)
+        weight = all_bitstrings(n).sum(axis=1)
+        top = np.argsort(-r["probs"])[:10]
+        plans = [{"names": [cnames[j] for j in range(n) if (int(i) >> j) & 1], "prob": float(r["probs"][i]),
+                  "valid": bool(weight[i] == k), "score": float(vals[i] / bf["value"]) if weight[i] == k else None,
+                  "optimal": bool(weight[i] == k and np.isclose(vals[i], bf["value"]))} for i in top]
+        # best plan among those the circuit actually outputs (probability > 0.1%)
+        seen = (weight == k) & (r["probs"] > 1e-3)
+        best = int(np.argmax(np.where(seen, vals, -np.inf)))
+        result = {"metrics": s, "top_plans": plans, "seconds": time.time() - t0, "evals": r["n_cost_evals"],
+                  "terms": r["n_terms"], "max_order": r["max_term_order"], "qubits": n, "reps": reps, "mixer": mixer,
+                  "best_plan": plan_payload(d, all_bitstrings(n)[best], lam, mu, bf["value"], cnames)}
+        QCACHE[key] = {"result": result, "progress": list(job["progress"])}
+        job.update(status="done", result=result)
+    except Exception as ex:  # noqa: BLE001
+        job.update(status="error", error=str(ex))
+
+
+def hardware_payload():
+    f = RESULTS / "hardware_run.json"
+    if not f.exists():
+        return {"available": False}
+    data = json.loads(f.read_text())
+    data["random_score"] = state("benchmark", 3, 1.0, 0.0)["random_score"]
+    return {"available": True, **data}
+
+
+class Handler(SimpleHTTPRequestHandler):
+    def __init__(self, *a, **kw):
+        super().__init__(*a, directory=str(UI), **kw)
+
+    def log_message(self, *_):
+        pass
+
+    def _json(self, obj, code=200):
+        body = json.dumps(obj, default=float).encode()
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def do_GET(self):  # noqa: N802
+        u = urlparse(self.path)
+        q = {k: v[0] for k, v in parse_qs(u.query).items()}
+        try:
+            if u.path == "/api/state":
+                return self._json(state(q.get("s", "sanghar"), int(q.get("k", 3)),
+                                        float(q.get("lam", 1.0)), float(q.get("mu", 0.0))))
+            if u.path == "/api/job":
+                job = JOBS.get(q.get("id", ""))
+                if not job:
+                    return self._json({"error": "unknown job"}, 404)
+                since = int(q.get("since", 0))
+                return self._json({"status": job["status"], "progress": job["progress"][since:],
+                                   "n": len(job["progress"]), "result": job.get("result"),
+                                   "error": job.get("error"), "cached": job.get("cached", False)})
+            if u.path == "/api/hardware":
+                return self._json(hardware_payload())
+        except Exception as ex:  # noqa: BLE001
+            return self._json({"error": str(ex)}, 500)
+        return super().do_GET()
+
+    def do_POST(self):  # noqa: N802
+        u = urlparse(self.path)
+        if u.path != "/api/qaoa":
+            return self._json({"error": "not found"}, 404)
+        n = int(self.headers.get("Content-Length", 0))
+        p = json.loads(self.rfile.read(n) or b"{}")
+        jid = uuid.uuid4().hex[:10]
+        JOBS[jid] = {"status": "running", "progress": []}
+        args = (jid, p.get("s", "sanghar"), int(p.get("k", 3)), float(p.get("lam", 1.0)), float(p.get("mu", 0.0)),
+                p.get("mixer", "xy"), int(p.get("reps", 2)))
+        threading.Thread(target=qaoa_job, args=args, daemon=True).start()
+        return self._json({"id": jid})
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--port", type=int, default=8765)
+    ap.add_argument("--window", action="store_true", help="open in a desktop window (pywebview)")
+    ap.add_argument("--no-open", action="store_true")
+    a = ap.parse_args()
+    srv = ThreadingHTTPServer(("127.0.0.1", a.port), Handler)
+    url = f"http://127.0.0.1:{a.port}/"
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    state("sanghar", 3, 1.0, 0.0)          # warm the default view
+
+    def warm():                            # pre-train the default QAOA settings so the demo is instant
+        for sid in ("benchmark", "hard", "sanghar"):
+            for mixer, reps in (("xy", 2), ("xy", 1), ("x", 1), ("xy", 3)):
+                jid = f"warm-{sid}-{mixer}-{reps}"
+                JOBS[jid] = {"status": "running", "progress": []}
+                qaoa_job(jid, sid, 3, 1.0, 0.0, mixer, reps)
+    threading.Thread(target=warm, daemon=True).start()
+    print(f"Antivenom Within Reach running at {url}  (Ctrl+C to stop)")
+    if a.window:
+        try:
+            import webview
+            webview.create_window("Antivenom Within Reach", url, width=1440, height=900, min_size=(1100, 720))
+            webview.start()
+            return
+        except ImportError:
+            print("pywebview not installed; opening in the browser instead (pip install pywebview)")
+    if not a.no_open:
+        webbrowser.open(url)
+    try:
+        while True:
+            time.sleep(3600)
+    except KeyboardInterrupt:
+        pass
+
+
+if __name__ == "__main__":
+    main()

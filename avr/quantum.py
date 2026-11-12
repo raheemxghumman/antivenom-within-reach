@@ -159,8 +159,9 @@ def _objective(p, en, order, alpha):
 
 def run_qaoa(d: District, k: int, lam: float = 1.0, mu: float = 0.0, reps: int = 2,
              mixer: str = "x", penalty: float = 0.0, alpha: float = 1.0, restarts: int = 4,
-             maxiter: int = 300, seed: int = 7) -> dict:
-    """Train QAOA and return its output distribution over all 2^n plans."""
+             maxiter: int = 300, seed: int = 7, callback=None) -> dict:
+    """Train QAOA and return its output distribution over all 2^n plans.
+    callback(restart, n_evals, value), if given, is called after every cost evaluation."""
     t0 = time.time()
     n = d.n_clinics
     if mixer == "x" and penalty <= 0:
@@ -174,15 +175,19 @@ def run_qaoa(d: District, k: int, lam: float = 1.0, mu: float = 0.0, reps: int =
     probs = exact_probabilities(qc, params)
 
     history = []
+    current = {"restart": 0}
 
     def cost(theta):
         val = _objective(probs(theta), en, order, alpha)
         history.append(val)
+        if callback is not None:
+            callback(current["restart"], len(history), val)
         return val
 
     rng = np.random.default_rng(seed)
     best = None
     for r in range(restarts):
+        current["restart"] = r
         if r == 0:   # linear-ramp start, a common good initial point for QAOA
             x0 = np.concatenate([np.linspace(0.1, 0.9, reps) * np.pi / 2,
                                  np.linspace(0.9, 0.1, reps) * np.pi / 4])

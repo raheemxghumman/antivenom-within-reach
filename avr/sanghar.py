@@ -57,17 +57,19 @@ def candidate_sites(osm, merge_km=8.0):
         g = [i] + [j for j in range(i + 1, len(bhus)) if j not in used and np.linalg.norm(xy[i] - xy[j]) < merge_km]
         used.update(g)
         groups.append(g)
-    names = [" / ".join(short_name(bhus[j]["name"]) for j in g) for g in groups]
+    names = [short_name(bhus[g[0]]["name"]) + (f" (+{len(g) - 1} BHU{'s' if len(g) > 2 else ''})" if len(g) > 1 else "")
+             for g in groups]
+    members = [[short_name(bhus[j]["name"]) for j in g] for g in groups]
     lat = np.array([np.mean([bhus[j]["lat"] for j in g]) for g in groups])
     lon = np.array([np.mean([bhus[j]["lon"] for j in g]) for g in groups])
-    return names, lat, lon
+    return names, lat, lon, members
 
 
 def make_sanghar(seed: int = 2026, window_h: float = 1.0) -> District:
     """Sanghar district with real facility and settlement locations, modelled demand."""
     osm = load_osm()
     rng = np.random.default_rng(seed)
-    names, clat, clon = candidate_sites(osm)
+    names, clat, clon, members = candidate_sites(osm)
     hosp = next(f for f in osm["facilities"] if "سول" in f["name"] or "civil" in f["name"].lower())
 
     places = osm["places"]
@@ -96,6 +98,7 @@ def make_sanghar(seed: int = 2026, window_h: float = 1.0) -> District:
         seed=seed,
     )
     d.clinic_labels = names                                        # real BHU names
+    d.clinic_members = members
     d.village_labels = [p["name"] for p in places]
     d.clinic_latlon = np.c_[clat, clon]
     d.village_latlon = np.array([[p["lat"], p["lon"]] for p in places])
