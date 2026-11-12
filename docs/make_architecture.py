@@ -9,13 +9,13 @@ FILL = {"data": "#e8f1fb", "model": "#eaf6ef", "quantum": "#efe9f8", "classical"
 EDGE = {"data": "#2c5aa0", "model": "#1b9e77", "quantum": "#6a3d9a", "classical": "#d95f02", "out": "#5b6675"}
 
 boxes = {
-    "data": (0.02, 0.62, 0.20, 0.30, "District data", "villages, clinics, hospital\npopulation, child share\nbite incidence, travel time\n(synthetic, sourced ranges)"),
-    "model": (0.28, 0.62, 0.20, 0.30, "Optimisation model", "x_i = 1: clinic i stocks\nmax weighted bites < 6 h\nchild weight (1+λ), fridge cost μ\nexactly k clinics"),
-    "ham": (0.54, 0.74, 0.20, 0.20, "Exact Hamiltonian", "Z, ZZ, ZZZ terms\n9 qubits, no ancillas"),
-    "qaoa": (0.54, 0.44, 0.20, 0.24, "QAOA (Qiskit + Aer)", "X mixer + penalty  |  XY mixer\nfrom Dicke state, CVaR\nCOBYLA, seeded restarts"),
-    "classical": (0.28, 0.14, 0.20, 0.30, "Classical baselines", "brute force (all 84 plans)\ngreedy max-coverage\nrandom valid plan"),
-    "noise": (0.54, 0.08, 0.20, 0.26, "Noise check", "IBM Heron noise model\n(FakeMarrakesh)\noptional real QPU run"),
-    "out": (0.80, 0.30, 0.18, 0.44, "Results & demo", "P(optimal), valid rate,\napprox. ratio, depth sweep\nmaps of each plan\nStreamlit app\nreport + video"),
+    "data": (0.02, 0.62, 0.20, 0.30, "District data", "Sanghar, Sindh: real BHUs,\nhospital, settlements (OSM)\n+ synthetic benchmark\n(demand modelled, sourced)"),
+    "model": (0.28, 0.62, 0.20, 0.30, "Optimisation model", "x_i = 1: clinic i stocks\nmax weighted bites in time\nchild weight (1+λ), fridge cost μ\nexactly k clinics"),
+    "ham": (0.54, 0.74, 0.20, 0.20, "Exact Hamiltonian", "Z, ZZ, ZZZ, ... terms\n9 qubits, no ancillas"),
+    "qaoa": (0.54, 0.44, 0.20, 0.24, "QAOA (Qiskit + Aer)", "X mixer + penalty | XY mixer\nring-XY (hardware), CVaR\nCOBYLA, seeded restarts"),
+    "classical": (0.28, 0.14, 0.20, 0.30, "Classical baselines", "brute force (all 84 plans)\ngreedy max-coverage\nrandom valid plan\n100-district study"),
+    "noise": (0.54, 0.08, 0.20, 0.26, "Hardware", "IBM Heron noise model\nreal QPU: ibm_marrakesh\njob dbqtg71abdes73fot410"),
+    "out": (0.80, 0.30, 0.18, 0.44, "Results & demo", "P(optimal), valid rate,\napprox. ratio, depth sweep\nmaps of each plan\nweb app (live QAOA)\nreport + video"),
 }
 kind = {"data": "data", "model": "model", "ham": "quantum", "qaoa": "quantum", "classical": "classical",
         "noise": "quantum", "out": "out"}

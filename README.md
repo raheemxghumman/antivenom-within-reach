@@ -11,7 +11,7 @@
 [![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Qiskit](https://img.shields.io/badge/Qiskit-2.6-6929C4?logo=qiskit&logoColor=white)](https://www.ibm.com/quantum/qiskit)
 [![Qiskit Aer](https://img.shields.io/badge/Qiskit%20Aer-0.18-6929C4)](https://github.com/Qiskit/qiskit-aer)
-[![Ran on IBM Quantum](https://img.shields.io/badge/ran%20on-ibm__marrakesh%20(156q%20Heron)-052FAD?logo=ibm&logoColor=white)](#3-real-ibm-quantum-computer)
+[![Ran on IBM Quantum](https://img.shields.io/badge/ran%20on-ibm__marrakesh%20%28156q%20Heron%29-052FAD?logo=ibm&logoColor=white)](#3-real-ibm-quantum-computer)
 [![Qubits](https://img.shields.io/badge/qubits-9-0f766e)](#formulation)
 [![Self-checks](https://img.shields.io/badge/self--checks-5%2F5%20passing-2ea44f)](check_model.py)
 <br>

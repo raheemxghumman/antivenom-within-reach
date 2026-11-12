@@ -1,9 +1,36 @@
-# Data sources and how the synthetic district is built
+# Data sources: what is real and what is modelled
 
-The district in this repo is **synthetic**. No village, clinic or person in it is real.
-Parameters are drawn from ranges reported in the sources below, so the scale is realistic.
-A health officer could replace `make_district()` with real clinic locations and travel times;
-the model and solvers would not change.
+This repository uses two kinds of district:
+
+1. **Sanghar, Sindh, Pakistan (real geography)** — `avr/sanghar.py`, `data/sanghar_osm.json`.
+2. **Synthetic benchmark districts** — `avr/instance.py` (seed 2026 = main benchmark,
+   seed 82 = hard case where greedy fails, seeds 0–99 = greedy statistics).
+
+The model and solvers are identical for both; only the input data changes.
+
+## Sanghar district (real geography)
+
+| Item | Real or modelled | Source / value |
+|---|---|---|
+| Locations and names of 15 government Basic Health Units | **Real** | OpenStreetMap, Overpass API extract, bbox 25.70–26.40 N, 68.70–69.50 E, fetched 12 Nov 2026 |
+| Location of the Civil Hospital, Sanghar (district hospital) | **Real** | OpenStreetMap (tagged "سول ہسپتال", Civil Hospital) |
+| Locations and names of 72 settlements (city, towns, villages, hamlets) | **Real** | OpenStreetMap `place=*` nodes |
+| Population of Sanghar city (75,410) and Khipro town (51,081) | **Real** | OpenStreetMap `population` tags |
+| Population of other settlements | Modelled | log-normal, median 1,500 (village) / 300 (hamlet); 20,000 for towns without a tag |
+| Envenoming incidence | Modelled | 100–350 per 100,000 per year (same range as below) |
+| Share of people under 15 | Modelled | 36–46% (Pakistan's population is ~35–40% under 15) |
+| Travel speed | Modelled | 15 km/h cart / qingqi (30%), 25 km/h motorbike (50%), 40 km/h car / ambulance (20%) |
+| Road detour factor | Modelled | 1.35 × straight-line distance |
+| Time window | Modelled | **1 hour** of travel (facilities are close together, so a 6-hour window would cover almost everyone) |
+| Which BHUs already have a fridge | Modelled | random, ~50% |
+| Candidate sites | Rule | all 15 BHUs; BHUs closer than 8 km are merged into one site (they serve overlapping villages) → 9 sites = 9 qubits. Private GP clinics and small dispensaries are excluded |
+
+Map data © OpenStreetMap contributors, available under the Open Database License (ODbL).
+
+## Synthetic benchmark districts
+
+No village, clinic or person in these is real. Parameters are drawn from the ranges below, so
+the scale is realistic.
 
 ## Burden (why the problem matters)
 
