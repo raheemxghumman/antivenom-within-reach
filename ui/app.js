@@ -230,6 +230,8 @@ function showQaoa(res, announce) {
   const m = res.metrics;
   countTo($("#mPopt"), m.p_optimal, (v) => v.toFixed(3));
   $("#mBoost").textContent = `${m.boost_vs_random.toFixed(1)}× a random plan`;
+  $("#mBoost").style.color = m.boost_vs_random >= 1 ? "" : "var(--muted)";
+  $("#mRand").style.color = m.approx_ratio_valid >= S.data.random_score ? "" : "var(--muted)";
   countTo($("#mValid"), m.valid_rate * 100, (v) => v.toFixed(0) + "%");
   countTo($("#mAR"), m.approx_ratio_valid, (v) => v.toFixed(3));
   $("#mRand").textContent = `random: ${S.data.random_score.toFixed(2)}`;

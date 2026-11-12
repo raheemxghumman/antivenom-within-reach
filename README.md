@@ -23,7 +23,7 @@
 
 [**Demo video**](#demo-video) · [**Report (.docx)**](docs/report.docx) · [**Run it**](#run-it) · [**Results**](#results) · [**Limitations**](#honest-limitations)
 
-<img src="docs/screenshots/app_qaoa_sanghar.png" width="100%" alt="The demo app: QAOA plan on the real Sanghar district map">
+<img src="docs/screenshots/app_sanghar.png" width="100%" alt="The demo app: optimal plan on the real Sanghar district map">
 
 </div>
 
