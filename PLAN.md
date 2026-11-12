@@ -26,10 +26,10 @@ counts `(1 + λ)` times, minus `μ` per new solar fridge needed.
 
 ## Honesty rules
 
-- The district is **synthetic**; parameter ranges are documented in `docs/data_sources.md`.
+- Sanghar locations are real (OpenStreetMap); demand is modelled. The benchmark district is synthetic. Everything is documented in `docs/data_sources.md`.
 - No speedup claim: at 9 qubits brute force is instant. The point is a faithful quantum
   formulation and a measured comparison.
-- Every number in the report comes from `run_experiments.py` output in `results/`.
+- Every number in the report comes from the `run_*.py` scripts' output in `results/`.
 
 ## Added during the build
 
