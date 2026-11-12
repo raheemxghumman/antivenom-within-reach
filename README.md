@@ -47,7 +47,7 @@
 - [The problem](#the-problem) · [Formulation](#formulation) · [Architecture](#architecture)
 - [Results](#results): [real district](#1-real-district-sanghar-sindh) · [benchmark](#2-benchmark-district) · [real QPU](#3-real-ibm-quantum-computer)
 - [Demo app](#demo-app) · [Demo video](#demo-video) · [Run it](#run-it) · [Verify in 2 minutes](#verify-in-2-minutes)
-- [Honest limitations](#honest-limitations) · [Hackathon checklist](#hackathon-checklist) · [Repository](#repository) · [Credits](#credits-and-references)
+- [Honest limitations](#honest-limitations) · [Hackathon checklist](#hackathon-checklist) · [Repository](#repository) · [Team](#team) · [Credits](#credits-and-references)
 
 ## The problem
 
@@ -291,6 +291,16 @@ antivenom-within-reach/
 └── docs/                  report (.docx), data sources, architecture, screenshots, video script
 ```
 
+## Team
+
+**Team 404 Not Found** · Qiskit Fall Fest 2026, FAST NUCES Islamabad
+
+| Member | Role |
+|---|---|
+| Wania Rahman | Team Lead |
+| Abdulraheem | Team Member |
+| Usaidullah Rehan | Team Member |
+
 ## Credits and references
 
 All code in this repository was written for this hackathon. Map data © OpenStreetMap contributors
@@ -305,4 +315,4 @@ All code in this repository was written for this hackathon. Map data © OpenStre
 7. Church R., ReVelle C., The maximal covering location problem, *Papers of the Regional Science Association* 32 (1974).
 8. Qiskit blog, *Where should I locate my store?* — QAOA for a related covering problem.
 
-<div align="center"><sub>Built for Qiskit Fall Fest 2026 · FAST NUCES Islamabad · MIT licensed</sub></div>
+<div align="center"><sub>Built by Team 404 Not Found for Qiskit Fall Fest 2026 · FAST NUCES Islamabad · MIT licensed</sub></div>

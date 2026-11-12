@@ -129,7 +129,7 @@ para("Quantum optimisation of snakebite antivenom placement in rural clinics", s
 para("Qiskit Fall Fest 2026 · FAST NUCES Islamabad · Domain: Healthcare · SDG 3.3, 3.8, 10", size=9.5)
 para("Real district: Sanghar, Sindh, Pakistan (OpenStreetMap) · Run on IBM Quantum ibm_marrakesh "
      f"(job {hwr['hardware']['job_id']})", size=9.5)
-para("Team: ______________________________", size=9.5)
+para("Team 404 Not Found: Wania Rahman (Team Lead), Abdulraheem, Usaidullah Rehan", size=9.5)
 para(f"Code: {REPO}", size=9.5)
 para("Video (3 min): https://drive.google.com/file/d/17UOcJFbHMMxh0-nDvonKZo-XtzchPU0c/view?usp=sharing", size=9.5)
 
