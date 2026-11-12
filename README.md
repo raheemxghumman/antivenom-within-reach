@@ -23,7 +23,9 @@
 
 [**▶️ Demo video**](https://drive.google.com/file/d/17UOcJFbHMMxh0-nDvonKZo-XtzchPU0c/view?usp=sharing) · [**Report (.docx)**](docs/report.docx) · [**Run it**](#run-it) · [**Results**](#results) · [**Limitations**](#honest-limitations)
 
-<img src="docs/screenshots/app_sanghar.png" width="100%" alt="The demo app: optimal plan on the real Sanghar district map">
+<a href="https://drive.google.com/file/d/17UOcJFbHMMxh0-nDvonKZo-XtzchPU0c/view?usp=sharing"><img src="docs/video_thumbnail.png" width="100%" alt="Watch the 3-minute demo video"></a>
+
+<sub>▶️ Click to watch the 3-minute demo on Google Drive</sub>
 
 </div>
 
@@ -194,7 +196,14 @@ greedy, optimal and QAOA plans on the map, and **watch QAOA train live** on Qisk
 
 ## Demo video
 
-▶️ **[Watch the 3-minute pitch and demo on Google Drive](https://drive.google.com/file/d/17UOcJFbHMMxh0-nDvonKZo-XtzchPU0c/view?usp=sharing)** (2:45 · 1080p)
+<p align="center">
+  <a href="https://drive.google.com/file/d/17UOcJFbHMMxh0-nDvonKZo-XtzchPU0c/view?usp=sharing"><img src="docs/video_thumbnail.png" width="80%" alt="Watch the 3-minute demo video"></a><br>
+  <b><a href="https://drive.google.com/file/d/17UOcJFbHMMxh0-nDvonKZo-XtzchPU0c/view?usp=sharing">▶️ Watch the 3-minute pitch and demo</a></b> · 2:45 · 1080p · Google Drive
+</p>
+
+**Preview** — the real Sanghar district lighting up as three health units are stocked:
+
+<p align="center"><img src="docs/preview.gif" width="80%" alt="Animated preview: Sanghar coverage rising from 52% to 87%"></p>
 
 ## Run it
 
