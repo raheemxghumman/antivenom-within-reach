@@ -1,0 +1,47 @@
+{
+  "no_clinic_stocked": {
+    "stocked": [],
+    "villages_covered": 13,
+    "villages_total": 30,
+    "bites_covered_per_year": 46.12161116886014,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.49243726836009016,
+    "child_bites_covered_per_year": 20.579670704615232,
+    "share_child_bites_covered": 0.4983663939069704,
+    "new_fridges_needed": 0
+  },
+  "optimal": {
+    "value": 45.777665446146415,
+    "stocked": [
+      "C1",
+      "C8",
+      "C9"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 78.11614934528654,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8340407506052968,
+    "child_bites_covered_per_year": 34.362797974335244,
+    "share_child_bites_covered": 0.832144690594231,
+    "new_fridges_needed": 2
+  },
+  "greedy": {
+    "value": 45.777665446146415,
+    "stocked": [
+      "C1",
+      "C8",
+      "C9"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 78.11614934528654,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8340407506052968,
+    "child_bites_covered_per_year": 34.362797974335244,
+    "share_child_bites_covered": 0.832144690594231,
+    "new_fridges_needed": 2
+  },
+  "random_mean_value": 29.326578267125008,
+  "random_worst_value": 15.767789098015292
+}

@@ -1,0 +1,257 @@
+[
+  {
+    "lambda_child": 0.0,
+    "mu_fridge": 0.0,
+    "stocked": [
+      "C1",
+      "C8",
+      "C9"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 78.11614934528654,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8340407506052968,
+    "child_bites_covered_per_year": 34.362797974335244,
+    "share_child_bites_covered": 0.832144690594231,
+    "new_fridges_needed": 2
+  },
+  {
+    "lambda_child": 0.0,
+    "mu_fridge": 2.0,
+    "stocked": [
+      "C1",
+      "C6",
+      "C8"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 77.43951632092393,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8268163863700699,
+    "child_bites_covered_per_year": 34.17411399036815,
+    "share_child_bites_covered": 0.8275754359143399,
+    "new_fridges_needed": 1
+  },
+  {
+    "lambda_child": 0.0,
+    "mu_fridge": 5.0,
+    "stocked": [
+      "C1",
+      "C6",
+      "C8"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 77.43951632092393,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8268163863700699,
+    "child_bites_covered_per_year": 34.17411399036815,
+    "share_child_bites_covered": 0.8275754359143399,
+    "new_fridges_needed": 1
+  },
+  {
+    "lambda_child": 0.5,
+    "mu_fridge": 0.0,
+    "stocked": [
+      "C1",
+      "C8",
+      "C9"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 78.11614934528654,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8340407506052968,
+    "child_bites_covered_per_year": 34.362797974335244,
+    "share_child_bites_covered": 0.832144690594231,
+    "new_fridges_needed": 2
+  },
+  {
+    "lambda_child": 0.5,
+    "mu_fridge": 2.0,
+    "stocked": [
+      "C1",
+      "C6",
+      "C8"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 77.43951632092393,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8268163863700699,
+    "child_bites_covered_per_year": 34.17411399036815,
+    "share_child_bites_covered": 0.8275754359143399,
+    "new_fridges_needed": 1
+  },
+  {
+    "lambda_child": 0.5,
+    "mu_fridge": 5.0,
+    "stocked": [
+      "C1",
+      "C6",
+      "C8"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 77.43951632092393,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8268163863700699,
+    "child_bites_covered_per_year": 34.17411399036815,
+    "share_child_bites_covered": 0.8275754359143399,
+    "new_fridges_needed": 1
+  },
+  {
+    "lambda_child": 1.0,
+    "mu_fridge": 0.0,
+    "stocked": [
+      "C1",
+      "C8",
+      "C9"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 78.11614934528654,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8340407506052968,
+    "child_bites_covered_per_year": 34.362797974335244,
+    "share_child_bites_covered": 0.832144690594231,
+    "new_fridges_needed": 2
+  },
+  {
+    "lambda_child": 1.0,
+    "mu_fridge": 2.0,
+    "stocked": [
+      "C1",
+      "C6",
+      "C8"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 77.43951632092393,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8268163863700699,
+    "child_bites_covered_per_year": 34.17411399036815,
+    "share_child_bites_covered": 0.8275754359143399,
+    "new_fridges_needed": 1
+  },
+  {
+    "lambda_child": 1.0,
+    "mu_fridge": 5.0,
+    "stocked": [
+      "C1",
+      "C6",
+      "C8"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 77.43951632092393,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8268163863700699,
+    "child_bites_covered_per_year": 34.17411399036815,
+    "share_child_bites_covered": 0.8275754359143399,
+    "new_fridges_needed": 1
+  },
+  {
+    "lambda_child": 2.0,
+    "mu_fridge": 0.0,
+    "stocked": [
+      "C1",
+      "C8",
+      "C9"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 78.11614934528654,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8340407506052968,
+    "child_bites_covered_per_year": 34.362797974335244,
+    "share_child_bites_covered": 0.832144690594231,
+    "new_fridges_needed": 2
+  },
+  {
+    "lambda_child": 2.0,
+    "mu_fridge": 2.0,
+    "stocked": [
+      "C1",
+      "C6",
+      "C8"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 77.43951632092393,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8268163863700699,
+    "child_bites_covered_per_year": 34.17411399036815,
+    "share_child_bites_covered": 0.8275754359143399,
+    "new_fridges_needed": 1
+  },
+  {
+    "lambda_child": 2.0,
+    "mu_fridge": 5.0,
+    "stocked": [
+      "C1",
+      "C6",
+      "C8"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 77.43951632092393,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8268163863700699,
+    "child_bites_covered_per_year": 34.17411399036815,
+    "share_child_bites_covered": 0.8275754359143399,
+    "new_fridges_needed": 1
+  },
+  {
+    "lambda_child": 4.0,
+    "mu_fridge": 0.0,
+    "stocked": [
+      "C1",
+      "C8",
+      "C9"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 78.11614934528654,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8340407506052968,
+    "child_bites_covered_per_year": 34.362797974335244,
+    "share_child_bites_covered": 0.832144690594231,
+    "new_fridges_needed": 2
+  },
+  {
+    "lambda_child": 4.0,
+    "mu_fridge": 2.0,
+    "stocked": [
+      "C1",
+      "C6",
+      "C8"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 77.43951632092393,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8268163863700699,
+    "child_bites_covered_per_year": 34.17411399036815,
+    "share_child_bites_covered": 0.8275754359143399,
+    "new_fridges_needed": 1
+  },
+  {
+    "lambda_child": 4.0,
+    "mu_fridge": 5.0,
+    "stocked": [
+      "C1",
+      "C6",
+      "C8"
+    ],
+    "villages_covered": 22,
+    "villages_total": 30,
+    "bites_covered_per_year": 77.43951632092393,
+    "bites_total_per_year": 93.6598712815825,
+    "share_bites_covered": 0.8268163863700699,
+    "child_bites_covered_per_year": 34.17411399036815,
+    "share_child_bites_covered": 0.8275754359143399,
+    "new_fridges_needed": 1
+  }
+]

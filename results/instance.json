@@ -1,0 +1,29 @@
+{
+  "seed": 2026,
+  "villages": 30,
+  "candidate_clinics": 9,
+  "people": 40655,
+  "expected_envenomings_per_year": 93.6598712815825,
+  "villages_covered_by_hospital_alone": 13,
+  "villages_decided_by_clinics": 14,
+  "villages_out_of_reach_of_any_site": 3,
+  "villages_by_number_of_reachable_clinics": {
+    "1": 7,
+    "2": 3,
+    "3": 4
+  },
+  "clinics_without_fridge": [
+    "C1",
+    "C2",
+    "C4",
+    "C5",
+    "C7",
+    "C9"
+  ],
+  "window_hours": 6.0,
+  "budget_k": 3,
+  "lambda_child": 1.0,
+  "mu_fridge": 0.0,
+  "search_space_all_bitstrings": 512,
+  "search_space_valid_plans": 84
+}

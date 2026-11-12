@@ -1,0 +1,84 @@
+[
+  {
+    "k": 0,
+    "optimal_share": 0.49243726836009016,
+    "greedy_share": 0.49243726836009016,
+    "random_share": 0.49243726836009016,
+    "optimal_child_share": 0.4983663939069704
+  },
+  {
+    "k": 1,
+    "optimal_share": 0.6328443173235023,
+    "greedy_share": 0.6328443173235023,
+    "random_share": 0.5762671707849971,
+    "optimal_child_share": 0.6330464655201357,
+    "optimal_plan": [
+      "C8"
+    ]
+  },
+  {
+    "k": 2,
+    "optimal_share": 0.757894215270122,
+    "greedy_share": 0.757894215270122,
+    "random_share": 0.6488112517256962,
+    "optimal_child_share": 0.7605134545726993,
+    "optimal_plan": [
+      "C1",
+      "C8"
+    ]
+  },
+  {
+    "k": 3,
+    "optimal_share": 0.8340407506052968,
+    "greedy_share": 0.8340407506052968,
+    "random_share": 0.7111767562136448,
+    "optimal_child_share": 0.832144690594231,
+    "optimal_plan": [
+      "C1",
+      "C8",
+      "C9"
+    ]
+  },
+  {
+    "k": 4,
+    "optimal_share": 0.8862083736799022,
+    "greedy_share": 0.8862083736799022,
+    "random_share": 0.7644709292803,
+    "optimal_child_share": 0.8841247838711969,
+    "optimal_plan": [
+      "C1",
+      "C5",
+      "C8",
+      "C9"
+    ]
+  },
+  {
+    "k": 5,
+    "optimal_share": 0.933625399395184,
+    "greedy_share": 0.9190656492559507,
+    "random_share": 0.8098010159571193,
+    "optimal_child_share": 0.9325637747774914,
+    "optimal_plan": [
+      "C1",
+      "C4",
+      "C5",
+      "C6",
+      "C8"
+    ]
+  },
+  {
+    "k": 6,
+    "optimal_share": 0.933625399395184,
+    "greedy_share": 0.933625399395184,
+    "random_share": 0.8482742612755599,
+    "optimal_child_share": 0.9325637747774914,
+    "optimal_plan": [
+      "C1",
+      "C2",
+      "C4",
+      "C5",
+      "C6",
+      "C8"
+    ]
+  }
+]

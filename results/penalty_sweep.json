@@ -1,0 +1,174 @@
+[
+  {
+    "mixer": "x",
+    "reps": 2,
+    "penalty": 1.255610174013695,
+    "alpha": 1.0,
+    "train_seconds": 4.416006326675415,
+    "cost_evaluations": 595,
+    "n_qubits": 9,
+    "hamiltonian_terms": 48,
+    "max_term_order": 3,
+    "circuit_depth": 117,
+    "exact": {
+      "valid_rate": 0.0211905781934685,
+      "p_optimal": 0.0005048271045217623,
+      "random_p_optimal": 0.011904761904761904,
+      "boost_vs_random": 0.04240547677982804,
+      "approx_ratio_valid": 0.7274755343716548,
+      "gain_over_random": 0.24165900541010196,
+      "most_likely_valid_plan": 168,
+      "most_likely_is_optimal": false,
+      "p_optimal_in_100_shots": 0.04924175229241534
+    },
+    "sampled_4096": {
+      "valid_rate": 0.19775390625,
+      "p_optimal": 0.00048828125,
+      "random_p_optimal": 0.011904761904761904,
+      "boost_vs_random": 0.041015625,
+      "approx_ratio_valid": 0.6010715598703952,
+      "gain_over_random": -0.11007938080189623,
+      "most_likely_valid_plan": 52,
+      "most_likely_is_optimal": false,
+      "p_optimal_in_100_shots": 0.047666556568750074
+    },
+    "best_sampled_plan_value": 45.777665446146415,
+    "best_sampled_is_optimal": true,
+    "theta": [
+      -0.4822865834534209,
+      0.30106470539009705,
+      1.201095424637846,
+      -0.6251585605260648
+    ],
+    "penalty_over_max_weight": 0.1
+  },
+  {
+    "mixer": "x",
+    "reps": 2,
+    "penalty": 3.7668305220410847,
+    "alpha": 1.0,
+    "train_seconds": 5.204429626464844,
+    "cost_evaluations": 604,
+    "n_qubits": 9,
+    "hamiltonian_terms": 48,
+    "max_term_order": 3,
+    "circuit_depth": 117,
+    "exact": {
+      "valid_rate": 0.01672912111593886,
+      "p_optimal": 0.00023398829693238308,
+      "random_p_optimal": 0.011904761904761904,
+      "boost_vs_random": 0.01965501694232018,
+      "approx_ratio_valid": 0.6648966765382448,
+      "gain_over_random": 0.06752376518397803,
+      "most_likely_valid_plan": 168,
+      "most_likely_is_optimal": false,
+      "p_optimal_in_100_shots": 0.023129874437886166
+    },
+    "sampled_4096": {
+      "valid_rate": 0.066650390625,
+      "p_optimal": 0.00146484375,
+      "random_p_optimal": 0.011904761904761904,
+      "boost_vs_random": 0.123046875,
+      "approx_ratio_valid": 0.6307104770711308,
+      "gain_over_random": -0.027604561901689237,
+      "most_likely_valid_plan": 261,
+      "most_likely_is_optimal": false,
+      "p_optimal_in_100_shots": 0.13635352662706934
+    },
+    "best_sampled_plan_value": 45.777665446146415,
+    "best_sampled_is_optimal": true,
+    "theta": [
+      0.35798252954320536,
+      1.5292608206623572,
+      1.3543399502812827,
+      0.1715227055411225
+    ],
+    "penalty_over_max_weight": 0.3
+  },
+  {
+    "mixer": "x",
+    "reps": 2,
+    "penalty": 12.556101740136949,
+    "alpha": 1.0,
+    "train_seconds": 6.038880825042725,
+    "cost_evaluations": 721,
+    "n_qubits": 9,
+    "hamiltonian_terms": 48,
+    "max_term_order": 3,
+    "circuit_depth": 117,
+    "exact": {
+      "valid_rate": 0.4334320635058131,
+      "p_optimal": 0.007970307463498028,
+      "random_p_optimal": 0.011904761904761904,
+      "boost_vs_random": 0.6695058269338343,
+      "approx_ratio_valid": 0.6663515465124688,
+      "gain_over_random": 0.07157216333681228,
+      "most_likely_valid_plan": 385,
+      "most_likely_is_optimal": true,
+      "p_optimal_in_100_shots": 0.5507716811619434
+    },
+    "sampled_4096": {
+      "valid_rate": 0.04931640625,
+      "p_optimal": 0.0,
+      "random_p_optimal": 0.011904761904761904,
+      "boost_vs_random": 0.0,
+      "approx_ratio_valid": 0.6402851615423087,
+      "gain_over_random": -0.000961538391794334,
+      "most_likely_valid_plan": 280,
+      "most_likely_is_optimal": false,
+      "p_optimal_in_100_shots": 0.0
+    },
+    "best_sampled_plan_value": 44.91234843781669,
+    "best_sampled_is_optimal": false,
+    "theta": [
+      -0.2777904522539875,
+      1.3351483076411605,
+      0.24707706776513844,
+      -0.07896755719689647
+    ],
+    "penalty_over_max_weight": 1.0
+  },
+  {
+    "mixer": "x",
+    "reps": 2,
+    "penalty": 37.66830522041084,
+    "alpha": 1.0,
+    "train_seconds": 7.677052736282349,
+    "cost_evaluations": 942,
+    "n_qubits": 9,
+    "hamiltonian_terms": 48,
+    "max_term_order": 3,
+    "circuit_depth": 117,
+    "exact": {
+      "valid_rate": 0.6237303101568629,
+      "p_optimal": 0.0083942367827361,
+      "random_p_optimal": 0.011904761904761904,
+      "boost_vs_random": 0.7051158897498324,
+      "approx_ratio_valid": 0.6475262150795239,
+      "gain_over_random": 0.01918780023228,
+      "most_likely_valid_plan": 385,
+      "most_likely_is_optimal": true,
+      "p_optimal_in_100_shots": 0.5695683256236406
+    },
+    "sampled_4096": {
+      "valid_rate": 0.00439453125,
+      "p_optimal": 0.0,
+      "random_p_optimal": 0.011904761904761904,
+      "boost_vs_random": 0.0,
+      "approx_ratio_valid": 0.6215428495876394,
+      "gain_over_random": -0.05311488710435048,
+      "most_likely_valid_plan": 193,
+      "most_likely_is_optimal": false,
+      "p_optimal_in_100_shots": 0.0
+    },
+    "best_sampled_plan_value": 35.68783197017491,
+    "best_sampled_is_optimal": false,
+    "theta": [
+      -0.29250679299802224,
+      1.542700594908464,
+      0.2711034310423849,
+      -0.06980019757351492
+    ],
+    "penalty_over_max_weight": 3.0
+  }
+]

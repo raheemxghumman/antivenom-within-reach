@@ -1,0 +1,16 @@
+instance: {'seed': 2026, 'villages': 30, 'candidate_clinics': 9, 'people': 40655, 'expected_envenomings_per_year': 93.6598712815825, 'villages_covered_by_hospital_alone': 13, 'villages_decided_by_clinics': 14, 'villages_out_of_reach_of_any_site': 3, 'villages_by_number_of_reachable_clinics': {1: 7, 2: 3, 3: 4}, 'clinics_without_fridge': ['C1', 'C2', 'C4', 'C5', 'C7', 'C9'], 'window_hours': 6.0, 'budget_k': 3, 'lambda_child': 1.0, 'mu_fridge': 0.0, 'search_space_all_bitstrings': 512, 'search_space_valid_plans': 84}
+  QAOA x p=1: valid 0.42  P(opt) 0.006  AR 0.656  3s
+  QAOA x p=2: valid 0.43  P(opt) 0.008  AR 0.666  6s
+  QAOA x p=3: valid 0.29  P(opt) 0.002  AR 0.694  10s
+  QAOA xy p=1: valid 1.00  P(opt) 0.024  AR 0.710  21s
+  QAOA xy p=2: valid 1.00  P(opt) 0.067  AR 0.723  39s
+  QAOA xy p=3: valid 1.00  P(opt) 0.071  AR 0.729  42s
+  penalty 0.1xA: valid 0.02 P(opt) 0.001
+  penalty 0.3xA: valid 0.02 P(opt) 0.000
+  penalty 1.0xA: valid 0.43 P(opt) 0.008
+  penalty 3.0xA: valid 0.62 P(opt) 0.008
+  CVaR alpha=1.0: P(opt) 0.067 AR 0.723
+  CVaR alpha=0.5: P(opt) 0.086 AR 0.718
+  CVaR alpha=0.25: P(opt) 0.094 AR 0.707
+  CVaR alpha=0.1: P(opt) 0.120 AR 0.639
+done in 366s -> C:\Users\rahee\Desktop\Qiskit Fall Fest 2026\antivenom-within-reach\results
