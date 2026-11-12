@@ -3,6 +3,7 @@
     python run_hardware.py            # needs an IBM Quantum account saved with
                                       # QiskitRuntimeService.save_account(...)
     python run_hardware.py --dry-run  # only train + transpile + noisy simulation, no QPU
+    python run_hardware.py --replot   # redraw the figure from the saved hardware results
 
 Two circuits (main benchmark district, 9 qubits) are trained on the ideal simulator,
 transpiled for the least-busy IBM QPU and sent in ONE job (two PUBs, 4096 shots each):
@@ -108,31 +109,52 @@ def main(dry_run=False):
     if hw:
         (OUT / "hardware_counts.json").write_text(json.dumps(hw["counts"]))
 
-    # figure: valid-plan rate and P(optimal) for ideal / noisy sim / hardware
-    labels = ["ideal simulator", f"noise model ({backend.name})"] + ([f"real QPU ({backend.name})"] if hw else [])
+    plot(OUT / f"{name}.json", rb["mean"] / bf["value"])
+    print(json.dumps({r["mixer"]: {k: r[k]["valid_rate"] for k in r if isinstance(r[k], dict)} for r in rows}))
+
+
+def plot(json_path: Path, random_ratio: float | None = None):
+    """Ideal vs noise-model vs real-QPU comparison figure, drawn from the saved results."""
+    out = json.loads(json_path.read_text())
+    rows, backend = out["circuits"], out["backend"]
+    hw = "real_hardware" in rows[0]
+    if random_ratio is None:
+        d = make_district(2026)
+        random_ratio = random_baseline(d, K, LAM, MU)["mean"] / brute_force(d, K, LAM, MU)["value"]
+    labels = ["ideal simulator", f"noise model of {backend}"] + ([f"real QPU: {backend}"] if hw else [])
     keys = ["ideal", "noisy_simulation"] + (["real_hardware"] if hw else [])
-    fig, axes = plt.subplots(1, 2, figsize=(10.5, 3.8))
+    fig, axes = plt.subplots(1, 2, figsize=(10.5, 4.2))
     colors = [STOCK, MUTED, MISS]
+    names = [f"standard QAOA, p={r['reps']}\n(X mixer + penalty)" if r["mixer"] == "x" else
+             f"constraint-preserving, p={r['reps']}\n(ring XY mixer)" for r in rows]
     for ax, metric, title in [(axes[0], "valid_rate", "share of shots that are valid plans"),
                               (axes[1], "approx_ratio_valid", "expected score of valid plans / optimum")]:
         x = np.arange(len(rows))
         w = 0.8 / len(keys)
         for j, key in enumerate(keys):
-            ax.bar(x + (j - (len(keys) - 1) / 2) * w, [row[key][metric] for row in rows], w, color=colors[j], label=labels[j])
+            vals = [row[key][metric] for row in rows]
+            bars = ax.bar(x + (j - (len(keys) - 1) / 2) * w, vals, w, color=colors[j], label=labels[j])
+            for b, v in zip(bars, vals):
+                ax.text(b.get_x() + b.get_width() / 2, v + 0.01, f"{v:.2f}", ha="center", va="bottom", fontsize=7.5, color=INK)
         ax.set_xticks(x)
-        ax.set_xticklabels(["standard QAOA\n(X mixer + penalty)", "constraint-preserving\n(ring XY mixer)"])
+        ax.set_xticklabels(names)
         ax.set_title(title, fontsize=10, color=INK, loc="left")
         style(ax)
-    axes[1].axhline(rb["mean"] / bf["value"], color=INK, ls=":", lw=1, label="random valid plan")
-    axes[0].legend(frameon=False, fontsize=8, loc="lower left")
-    axes[1].legend(frameon=False, fontsize=8, loc="lower left")
-    axes[1].set_ylim(0.5, 1.0)
-    fig.tight_layout()
-    fig.savefig(OUT / ("hardware_vs_sim.png" if hw else "hardware_dry_run.png"), dpi=160)
-    print(json.dumps({r["mixer"]: {k: r[k]["valid_rate"] for k in keys} for r in rows}))
-
+    axes[0].set_ylim(0, 1.12)
+    axes[1].axhline(random_ratio, color=INK, ls=":", lw=1, label="random valid plan")
+    axes[1].set_ylim(0.5, 0.82)
+    handles, labs = axes[1].get_legend_handles_labels()
+    fig.legend(handles, labs, loc="upper center", ncol=4, frameon=False, fontsize=8.5, bbox_to_anchor=(0.5, 1.02))
+    fig.tight_layout(rect=(0, 0, 1, 0.93))
+    fig.savefig(json_path.with_name("hardware_vs_sim.png" if hw else "hardware_dry_run.png"), dpi=160)
+    plt.close(fig)
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
-    main(ap.parse_args().dry_run)
+    ap.add_argument("--replot", action="store_true", help="redraw the figure from results/hardware_run.json")
+    a = ap.parse_args()
+    if a.replot:
+        plot(OUT / "hardware_run.json")
+    else:
+        main(a.dry_run)

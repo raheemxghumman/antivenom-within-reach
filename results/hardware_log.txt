@@ -1,0 +1,6 @@
+trained x: ideal P(opt) 0.006
+trained xyring: ideal P(opt) 0.000
+x: transpiled depth 305, two-qubit gates 154
+xyring: transpiled depth 137, two-qubit gates 71
+JOB SENT to ibm_marrakesh: dbqtg71abdes73fot410 at 2026-11-12T15:15:40+00:00
+{"x": {"ideal": 0.4217746224726808, "noisy_simulation": 0.355712890625, "real_hardware": 0.3115234375}, "xyring": {"ideal": 0.9999999999999999, "noisy_simulation": 0.772216796875, "real_hardware": 0.706787109375}}
