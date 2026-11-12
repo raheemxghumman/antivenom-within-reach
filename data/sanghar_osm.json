@@ -1,0 +1,786 @@
+{
+ "source": "OpenStreetMap contributors (ODbL), Overpass API extract, bbox 25.70,68.70,26.40,69.50, fetched 2026-11-12",
+ "facilities": [
+  {
+   "osm_id": "node/5406053530",
+   "name": "Dr. Mohan lal",
+   "kind": "clinic",
+   "lat": 25.826767,
+   "lon": 69.3776921
+  },
+  {
+   "osm_id": "node/5406053531",
+   "name": "Dr. Bharat Kumar Khatri",
+   "kind": "clinic",
+   "lat": 25.8270409,
+   "lon": 69.3773961
+  },
+  {
+   "osm_id": "node/5406055640",
+   "name": "Dr. Khushi Ram",
+   "kind": "clinic",
+   "lat": 25.8266248,
+   "lon": 69.3779315
+  },
+  {
+   "osm_id": "node/5406055641",
+   "name": "Dr. Gori Amar",
+   "kind": "clinic",
+   "lat": 25.8273061,
+   "lon": 69.3786722
+  },
+  {
+   "osm_id": "node/5406055642",
+   "name": "Dr. Prem Babu",
+   "kind": "clinic",
+   "lat": 25.8266351,
+   "lon": 69.3779508
+  },
+  {
+   "osm_id": "node/5406055829",
+   "name": "Dilip bachani",
+   "kind": "clinic",
+   "lat": 25.82736,
+   "lon": 69.3794717
+  },
+  {
+   "osm_id": "node/5481213457",
+   "name": "Dr. Ameen Bhayo",
+   "kind": "clinic",
+   "lat": 25.827093,
+   "lon": 69.3726374
+  },
+  {
+   "osm_id": "node/11707921197",
+   "name": "GD Jadam Dars",
+   "kind": "hospital",
+   "lat": 25.7388055,
+   "lon": 69.48201
+  },
+  {
+   "osm_id": "node/11707943533",
+   "name": "GD Amin Dars",
+   "kind": "hospital",
+   "lat": 25.7551556,
+   "lon": 69.4897481
+  },
+  {
+   "osm_id": "node/11707968388",
+   "name": "Basic Health Unit Hathongo",
+   "kind": "hospital",
+   "lat": 25.7903412,
+   "lon": 69.4619612
+  },
+  {
+   "osm_id": "node/11707974895",
+   "name": "Basic Health Unit Kalu Rajar",
+   "kind": "hospital",
+   "lat": 25.8258428,
+   "lon": 69.3772643
+  },
+  {
+   "osm_id": "node/11708000363",
+   "name": "DCD Loon Khan",
+   "kind": "hospital",
+   "lat": 25.8545582,
+   "lon": 69.3005937
+  },
+  {
+   "osm_id": "node/11708001530",
+   "name": "Basic Health Unit Malook Mehar",
+   "kind": "hospital",
+   "lat": 25.8870298,
+   "lon": 69.2995935
+  },
+  {
+   "osm_id": "node/11708027867",
+   "name": "Basic Health Unit Haji Hassan Hingoro",
+   "kind": "hospital",
+   "lat": 25.9052024,
+   "lon": 69.348464
+  },
+  {
+   "osm_id": "node/11708028401",
+   "name": "Basic Health Unit Muhammad Bux Rajar",
+   "kind": "hospital",
+   "lat": 25.9473215,
+   "lon": 69.3432628
+  },
+  {
+   "osm_id": "node/11708062441",
+   "name": "Basic Health Unit Tando Mitha Khan",
+   "kind": "hospital",
+   "lat": 25.9915849,
+   "lon": 69.2036281
+  },
+  {
+   "osm_id": "node/11708063770",
+   "name": "Basic Health Unit Qazi Wali Muhammad Rajar",
+   "kind": "hospital",
+   "lat": 25.9739465,
+   "lon": 69.2904209
+  },
+  {
+   "osm_id": "node/11708065530",
+   "name": "Basic Health Unit Peru Mal",
+   "kind": "hospital",
+   "lat": 25.8812437,
+   "lon": 69.1284241
+  },
+  {
+   "osm_id": "node/11708067594",
+   "name": "Basic Health Unit Dhilyar",
+   "kind": "hospital",
+   "lat": 25.9747055,
+   "lon": 69.2923212
+  },
+  {
+   "osm_id": "node/11708077278",
+   "name": "Basic Health Unit Chaman Das",
+   "kind": "hospital",
+   "lat": 25.8726984,
+   "lon": 69.1767369
+  },
+  {
+   "osm_id": "node/11708079924",
+   "name": "Basic Health Unit Muhib Ali Junejo",
+   "kind": "hospital",
+   "lat": 25.8586301,
+   "lon": 69.1384655
+  },
+  {
+   "osm_id": "node/11708113254",
+   "name": "Government Dispensary Karim Dad Junejo",
+   "kind": "hospital",
+   "lat": 26.038603,
+   "lon": 69.1215581
+  },
+  {
+   "osm_id": "node/11896613364",
+   "name": "BHU CHUTIARYOON",
+   "kind": "hospital",
+   "lat": 26.0570051,
+   "lon": 69.1918864
+  },
+  {
+   "osm_id": "node/11896623009",
+   "name": "BHU Dhani Parto Rajpar",
+   "kind": "hospital",
+   "lat": 25.9582916,
+   "lon": 69.1086985
+  },
+  {
+   "osm_id": "node/11896623535",
+   "name": "BHU BASSI",
+   "kind": "hospital",
+   "lat": 25.8231257,
+   "lon": 69.0296986
+  },
+  {
+   "osm_id": "node/11896642894",
+   "name": "BHU NAUABAD",
+   "kind": "hospital",
+   "lat": 25.8137092,
+   "lon": 68.9465817
+  },
+  {
+   "osm_id": "node/11896643388",
+   "name": "GD MEHRAB KHAN LASKANI",
+   "kind": "hospital",
+   "lat": 25.8561434,
+   "lon": 68.9536639
+  },
+  {
+   "osm_id": "node/11896655148",
+   "name": "GD DILOR MORI",
+   "kind": "hospital",
+   "lat": 25.8458944,
+   "lon": 68.7934655
+  },
+  {
+   "osm_id": "way/401478094",
+   "name": "سول ہسپتال",
+   "kind": "hospital",
+   "lat": 26.0445046,
+   "lon": 68.9433819
+  }
+ ],
+ "places": [
+  {
+   "osm_id": "node/767462153",
+   "name": "Sanghar",
+   "place": "city",
+   "lat": 26.0470447,
+   "lon": 68.9492402,
+   "population": "75410"
+  },
+  {
+   "osm_id": "node/869462038",
+   "name": "Sinjhoro",
+   "place": "town",
+   "lat": 26.032562,
+   "lon": 68.8077659,
+   "population": null
+  },
+  {
+   "osm_id": "node/869472780",
+   "name": "Jakhrao",
+   "place": "village",
+   "lat": 26.2743228,
+   "lon": 68.9281006,
+   "population": null
+  },
+  {
+   "osm_id": "node/881648336",
+   "name": "Piral Makar Rani",
+   "place": "village",
+   "lat": 25.7812061,
+   "lon": 68.7010689,
+   "population": null
+  },
+  {
+   "osm_id": "node/881648810",
+   "name": "Berani",
+   "place": "town",
+   "lat": 25.7866253,
+   "lon": 68.8062981,
+   "population": null
+  },
+  {
+   "osm_id": "node/881651497",
+   "name": "Jhol",
+   "place": "town",
+   "lat": 25.9592881,
+   "lon": 68.8887037,
+   "population": null
+  },
+  {
+   "osm_id": "node/881652025",
+   "name": "Allah Bakhsh Thahim",
+   "place": "village",
+   "lat": 25.9259841,
+   "lon": 68.9416613,
+   "population": null
+  },
+  {
+   "osm_id": "node/881652461",
+   "name": "Mangrari",
+   "place": "village",
+   "lat": 25.8624761,
+   "lon": 68.902265,
+   "population": null
+  },
+  {
+   "osm_id": "node/881652593",
+   "name": "Hot Wasan",
+   "place": "village",
+   "lat": 25.8735973,
+   "lon": 68.924581,
+   "population": null
+  },
+  {
+   "osm_id": "node/881652715",
+   "name": "Usman",
+   "place": "village",
+   "lat": 25.8705082,
+   "lon": 68.9587416,
+   "population": null
+  },
+  {
+   "osm_id": "node/881653212",
+   "name": "Agedino Wasanjo",
+   "place": "village",
+   "lat": 25.818908,
+   "lon": 68.8917937,
+   "population": null
+  },
+  {
+   "osm_id": "node/881654270",
+   "name": "Sakha",
+   "place": "village",
+   "lat": 25.7052775,
+   "lon": 68.9465536,
+   "population": null
+  },
+  {
+   "osm_id": "node/912920971",
+   "name": "Bachhna",
+   "place": "village",
+   "lat": 26.0083772,
+   "lon": 69.1232649,
+   "population": null
+  },
+  {
+   "osm_id": "node/912920972",
+   "name": "Lutko",
+   "place": "village",
+   "lat": 26.0274172,
+   "lon": 69.0840424,
+   "population": null
+  },
+  {
+   "osm_id": "node/912920973",
+   "name": "Behram Khan Buoti",
+   "place": "village",
+   "lat": 26.0799678,
+   "lon": 69.09718,
+   "population": null
+  },
+  {
+   "osm_id": "node/912920974",
+   "name": "Janib Dhoro",
+   "place": "village",
+   "lat": 26.0693054,
+   "lon": 69.1046056,
+   "population": null
+  },
+  {
+   "osm_id": "node/912920975",
+   "name": "Dandahu",
+   "place": "village",
+   "lat": 26.0900591,
+   "lon": 69.0575767,
+   "population": null
+  },
+  {
+   "osm_id": "node/912920976",
+   "name": "Nawabkot",
+   "place": "village",
+   "lat": 26.0483613,
+   "lon": 69.0655735,
+   "population": null
+  },
+  {
+   "osm_id": "node/912920978",
+   "name": "Naukot",
+   "place": "village",
+   "lat": 26.0418877,
+   "lon": 69.1226937,
+   "population": null
+  },
+  {
+   "osm_id": "node/912920979",
+   "name": "Qital Shar",
+   "place": "village",
+   "lat": 26.0100908,
+   "lon": 69.0583383,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924813",
+   "name": "",
+   "place": "village",
+   "lat": 26.3011011,
+   "lon": 69.0820134,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924817",
+   "name": "Jawaro",
+   "place": "village",
+   "lat": 26.0075081,
+   "lon": 69.2521783,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924820",
+   "name": "",
+   "place": "village",
+   "lat": 26.2522464,
+   "lon": 69.0962403,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924824",
+   "name": "",
+   "place": "village",
+   "lat": 26.3011011,
+   "lon": 69.0543648,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924826",
+   "name": "",
+   "place": "village",
+   "lat": 26.1754747,
+   "lon": 69.0865767,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924834",
+   "name": "Baqar",
+   "place": "village",
+   "lat": 26.0889076,
+   "lon": 69.154223,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924835",
+   "name": "Maruf Rajar",
+   "place": "village",
+   "lat": 26.0376634,
+   "lon": 69.2318777,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924839",
+   "name": "",
+   "place": "village",
+   "lat": 26.2731842,
+   "lon": 69.0897979,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924842",
+   "name": "Manghari",
+   "place": "village",
+   "lat": 26.028899,
+   "lon": 69.2975722,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924845",
+   "name": "Aitpar",
+   "place": "village",
+   "lat": 26.0053401,
+   "lon": 69.1688079,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924847",
+   "name": "",
+   "place": "village",
+   "lat": 26.1832593,
+   "lon": 69.1362367,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924850",
+   "name": "Panhal",
+   "place": "village",
+   "lat": 26.0754992,
+   "lon": 69.204432,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924855",
+   "name": "",
+   "place": "village",
+   "lat": 26.2785528,
+   "lon": 69.0747657,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924857",
+   "name": "Purai",
+   "place": "village",
+   "lat": 26.0561169,
+   "lon": 69.302352,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924865",
+   "name": "Khumbro",
+   "place": "village",
+   "lat": 26.0084523,
+   "lon": 69.3382001,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924866",
+   "name": "Chotiari",
+   "place": "village",
+   "lat": 26.0559931,
+   "lon": 69.1942329,
+   "population": null
+  },
+  {
+   "osm_id": "node/912924872",
+   "name": "",
+   "place": "village",
+   "lat": 26.2256716,
+   "lon": 69.1220098,
+   "population": null
+  },
+  {
+   "osm_id": "node/2487039858",
+   "name": "Khipro",
+   "place": "town",
+   "lat": 25.8273375,
+   "lon": 69.3757258,
+   "population": "51081"
+  },
+  {
+   "osm_id": "node/5229838333",
+   "name": "Sindhri",
+   "place": "village",
+   "lat": 25.7091984,
+   "lon": 69.1285568,
+   "population": null
+  },
+  {
+   "osm_id": "node/6616840498",
+   "name": "Chak 25A Jamrao",
+   "place": "village",
+   "lat": 26.1290461,
+   "lon": 68.7764078,
+   "population": null
+  },
+  {
+   "osm_id": "node/7238518409",
+   "name": "Chak 25/B Jamrao",
+   "place": "village",
+   "lat": 26.1199511,
+   "lon": 68.7786341,
+   "population": null
+  },
+  {
+   "osm_id": "node/7238564463",
+   "name": "Chak 25/C Jamrao",
+   "place": "village",
+   "lat": 26.1060223,
+   "lon": 68.7799254,
+   "population": null
+  },
+  {
+   "osm_id": "node/7919734281",
+   "name": "Al Shahbaz Mor",
+   "place": "hamlet",
+   "lat": 25.8669792,
+   "lon": 69.1222576,
+   "population": null
+  },
+  {
+   "osm_id": "node/7920998808",
+   "name": "Village Quli Rajar",
+   "place": "village",
+   "lat": 25.8311707,
+   "lon": 69.0589787,
+   "population": null
+  },
+  {
+   "osm_id": "node/8493298220",
+   "name": "Khadro",
+   "place": "town",
+   "lat": 26.1480592,
+   "lon": 68.7172333,
+   "population": null
+  },
+  {
+   "osm_id": "node/9560050299",
+   "name": "Jam Nawaz Ali",
+   "place": "town",
+   "lat": 25.7852629,
+   "lon": 68.8578236,
+   "population": null
+  },
+  {
+   "osm_id": "node/9560050300",
+   "name": "Berwari",
+   "place": "hamlet",
+   "lat": 25.8101875,
+   "lon": 68.9024119,
+   "population": null
+  },
+  {
+   "osm_id": "node/9560050301",
+   "name": "Nauabad",
+   "place": "village",
+   "lat": 25.8137478,
+   "lon": 68.9438051,
+   "population": null
+  },
+  {
+   "osm_id": "node/9560050302",
+   "name": "Basi",
+   "place": "village",
+   "lat": 25.8255835,
+   "lon": 69.0309395,
+   "population": null
+  },
+  {
+   "osm_id": "node/9560050303",
+   "name": "Haji Ahmed Khan Narejo",
+   "place": "village",
+   "lat": 25.8370894,
+   "lon": 69.0518261,
+   "population": null
+  },
+  {
+   "osm_id": "node/10708184247",
+   "name": "Padri Jo Goth",
+   "place": "village",
+   "lat": 26.071086,
+   "lon": 68.9898595,
+   "population": null
+  },
+  {
+   "osm_id": "node/10708184255",
+   "name": "Haji Abdul Kareem Laghari",
+   "place": "village",
+   "lat": 26.0606988,
+   "lon": 68.9769491,
+   "population": null
+  },
+  {
+   "osm_id": "node/10708184259",
+   "name": "Mallah",
+   "place": "village",
+   "lat": 26.0623479,
+   "lon": 68.9918264,
+   "population": null
+  },
+  {
+   "osm_id": "node/10708184270",
+   "name": "Haji Bachal Laghari",
+   "place": "village",
+   "lat": 26.0657426,
+   "lon": 68.9984664,
+   "population": null
+  },
+  {
+   "osm_id": "node/10708184283",
+   "name": "Molvi Khair Muhammad Ahmedani",
+   "place": "village",
+   "lat": 26.0641684,
+   "lon": 69.0148219,
+   "population": null
+  },
+  {
+   "osm_id": "node/10708184284",
+   "name": "Nazar Muhammad Bugti",
+   "place": "village",
+   "lat": 26.0577003,
+   "lon": 69.0115198,
+   "population": null
+  },
+  {
+   "osm_id": "node/10708184285",
+   "name": "Khuram Burdhi",
+   "place": "village",
+   "lat": 26.0645312,
+   "lon": 69.0218239,
+   "population": null
+  },
+  {
+   "osm_id": "node/10708184286",
+   "name": "Kamal ud Din Narejo Bakhoro",
+   "place": "village",
+   "lat": 26.0466682,
+   "lon": 69.003144,
+   "population": null
+  },
+  {
+   "osm_id": "node/10708184287",
+   "name": "Kot Nawab",
+   "place": "village",
+   "lat": 26.0561221,
+   "lon": 69.0428078,
+   "population": null
+  },
+  {
+   "osm_id": "node/10708184300",
+   "name": "Bhagg",
+   "place": "village",
+   "lat": 26.0708329,
+   "lon": 69.0491175,
+   "population": null
+  },
+  {
+   "osm_id": "node/10708184301",
+   "name": "Haji Khan Laghari",
+   "place": "village",
+   "lat": 26.078494,
+   "lon": 69.0566952,
+   "population": null
+  },
+  {
+   "osm_id": "node/10708184302",
+   "name": "Garang Bunglow",
+   "place": "village",
+   "lat": 25.9961856,
+   "lon": 68.9626209,
+   "population": null
+  },
+  {
+   "osm_id": "node/10708184303",
+   "name": "Shahmir Khan Wassan",
+   "place": "village",
+   "lat": 26.0071282,
+   "lon": 68.9650748,
+   "population": null
+  },
+  {
+   "osm_id": "node/11220736582",
+   "name": "Hingorono",
+   "place": "village",
+   "lat": 25.7333677,
+   "lon": 69.1763892,
+   "population": null
+  },
+  {
+   "osm_id": "node/11276589373",
+   "name": "Goth Muhammad Bakhsh",
+   "place": "hamlet",
+   "lat": 25.7695205,
+   "lon": 68.7049374,
+   "population": null
+  },
+  {
+   "osm_id": "node/11276589374",
+   "name": "Goth Muqim Wasan Makrani",
+   "place": "village",
+   "lat": 25.768593,
+   "lon": 68.7114061,
+   "population": null
+  },
+  {
+   "osm_id": "node/11276589378",
+   "name": "Goth Muhammad Khaskheli",
+   "place": "village",
+   "lat": 25.7754921,
+   "lon": 68.7147307,
+   "population": null
+  },
+  {
+   "osm_id": "node/11412562467",
+   "name": "Muhammad Bux Rajar",
+   "place": "village",
+   "lat": 25.9483126,
+   "lon": 69.344252,
+   "population": "100"
+  },
+  {
+   "osm_id": "node/11651399162",
+   "name": "Khalifo Hayat Rajar",
+   "place": "village",
+   "lat": 26.063105,
+   "lon": 69.2250674,
+   "population": null
+  },
+  {
+   "osm_id": "node/11651399163",
+   "name": "Sawan Rajar",
+   "place": "village",
+   "lat": 26.0647213,
+   "lon": 69.2290029,
+   "population": null
+  },
+  {
+   "osm_id": "node/13396013361",
+   "name": "Village loon khan",
+   "place": "village",
+   "lat": 25.8558829,
+   "lon": 69.2996997,
+   "population": "4000"
+  },
+  {
+   "osm_id": "node/14209678611",
+   "name": "Kurkali Sindh Pakistan",
+   "place": "village",
+   "lat": 25.9420975,
+   "lon": 68.8176652,
+   "population": null
+  }
+ ]
+}
