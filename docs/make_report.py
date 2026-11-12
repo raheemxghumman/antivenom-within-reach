@@ -210,7 +210,7 @@ para("The code is a small Python package (avr/) built on Qiskit 2.6, Qiskit Aer 
      "qiskit-optimization 0.7: instance generator, exact objective, classical baselines, Hamiltonian "
      "and QAOA circuits, and plots. run_experiments.py reproduces every result in this report in about "
      "six minutes on a laptop CPU; run_noisy.py adds the noise study; app.py is an interactive "
-     "Streamlit demo that draws the district map and runs QAOA live.")
+     "web app (Leaflet map, live QAOA training stream, real-QPU panel) built on the same solvers.")
 
 # ---------------------------------------------------------------- 5
 doc.add_heading("5. Results and comparison with classical baselines", 1)

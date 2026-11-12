@@ -1,4 +1,4 @@
-"""Figures shared by the experiment script and the Streamlit app."""
+"""Figures for the experiment scripts and the report."""
 from __future__ import annotations
 
 import matplotlib
