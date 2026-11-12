@@ -112,12 +112,9 @@ flowchart LR
     E --> UI["📊 Results · report · web app"]
 ```
 
-<details>
-<summary>Static architecture diagram (also in the report)</summary>
+**Architecture diagram** (Figure 1 in the [report](docs/report.docx)):
 
-![Architecture](docs/architecture.png)
-
-</details>
+<p align="center"><img src="docs/architecture.png" width="95%" alt="Architecture diagram"></p>
 
 ## Results
 
